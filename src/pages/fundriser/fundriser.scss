@@ -1,0 +1,17 @@
+.fundriser{
+    display: flex;
+    padding: 70px; 
+    &__content{
+        width: 65%;
+        // height: 300px;
+        // border:solid red 1px;
+    }
+    &__donate{
+        width: 35%;
+        height: 200px;
+        // border:solid red 1px;
+        position: fixed;
+        margin-left: 58%;
+        padding-left: 1rem;
+    }
+}

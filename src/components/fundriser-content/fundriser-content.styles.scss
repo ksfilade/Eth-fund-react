@@ -1,0 +1,31 @@
+.content{
+    padding-left:10%;
+    &__organaizer{
+        display: flex;
+        &__text{
+            margin-left:15px;
+        }
+    }
+    &__created{
+        border:solid gray 1px;
+        border-right: none;
+        border-left: none;
+        align-items: center;
+        height: 45px;
+        display: flex;
+        &__date{
+            width: 27%;
+            border-right: solid gray 1px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+        }
+        &__category{
+            width: 27%;
+            padding-left: 20px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+        }
+    }
+}

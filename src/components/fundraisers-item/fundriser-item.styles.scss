@@ -1,0 +1,103 @@
+.featured__item{
+        border-radius:5px;
+        box-shadow: 0 10px 10px 5px #f5f5f5;
+
+        overflow: hidden;
+        height:350px;
+        width: 250px;
+        background-color: rgba(255, 255, 255, 0.8);
+        // border: 1px solid rgba(0, 0, 0, 0.8);
+        padding: 0px;
+        font-size: 30px;
+        text-align: center;
+        &__location{
+            height: 20px;
+            padding: 0px;
+            display: flex;
+            align-content: flex-start;
+            align-items: flex-start;
+            &__text{
+                font-size: 16px;
+                margin-left: 3px;
+                color: #4CAF50;
+                margin-top: -2px;
+            }
+        }
+        &__title{
+            height: 20px;
+            padding: 0px;
+            display: flex;
+            align-content: flex-start;
+            align-items: flex-start;
+            cursor:pointer;
+            &__text{
+                font-size: 18px;
+                margin-left: 3px;
+                color: black;
+                margin-top: -2px;
+            }
+        }
+        &__content{
+            height: 80px;
+            padding: 0px;
+            display: flex;
+            align-content: flex-start;
+            align-items: flex-start;
+            &__text{
+                display: inline;
+                margin-block-start: 0px;
+                font-size: 16px;
+                margin-left: 3px;
+                color: black;
+                text-align: left;
+            }
+        }
+        &__raised{
+            height: 80px;
+            padding: 0px;
+            display: flex;
+            align-content: flex-start;
+            align-items: flex-start;
+            &__text{
+                display: inline;
+                margin-block-start: 0px;
+                font-size: 16px;
+                margin-left: 3px;
+                color: black;
+                text-align: left;
+            }
+        }
+        &__progress{
+            height: 40px;
+            padding: 0px;
+            display: flex;
+            align-content: flex-start;
+            align-items: flex-start;
+            flex-direction:column;
+            padding: 2px;
+            &__text{
+                display: block;
+                margin-block-start: 0px;
+                font-size: 12px;
+                margin-left: 3px;
+                color: gray;
+                text-align: left;
+                
+            }
+            &__bar-container{
+                display: block;
+                height: 5px;
+                border:solid black 1px;
+                width:99%;
+                border-radius:3px;
+                padding: 0px;
+                &__content{
+                    width:60%;
+                    height:100%;
+                    background-color: #4CAF50;
+                    border-radius:4px;
+                }
+            }
+        }
+
+    }
