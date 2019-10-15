@@ -6,6 +6,7 @@ import 'typeface-roboto';
 import HomePage from './pages/home-page/home-page'
 import BrowseFundrisers from './pages/browse-fundrisers/browse-fundrisers'
 import Fundriser from './pages/fundriser/fundriser'
+import Navbar from './components/navbar/navbar.component'
 
 class App extends React.Component {
   constructor() {
@@ -25,6 +26,7 @@ class App extends React.Component {
   return (
     <div className="App">      
       <div>
+        <Navbar></Navbar>
       </div>
       <Switch>
         <Route exact path='/' component = { HomePage } />

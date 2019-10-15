@@ -33,9 +33,9 @@ return(
       <div className = 'content__text'>
         <p>Deputy Sandeep Singh Dhaliwal was the first Sikh to be accommodated with his articles of faith as a member of the Harris County Sheriff's Department.  In this very line of duty, his life was taken in a senseless manner on September, 27th, 2019.  Deputy Dhaliwal is survived by his wife and three children and many members of the Houston Sikh Community who will feel this void for years to come.
 
-OFFICIAL FUND APPROVED BY THE DHALIWAL FAMILY!  This fund has been established to help in the  Dhaliwal kids' educational  endeavors, unforseen expenses,  for and provide hopes and dreams through the same vision that Deputy Dhaliwal had.
+        OFFICIAL FUND APPROVED BY THE DHALIWAL FAMILY!  This fund has been established to help in the  Dhaliwal kids' educational  endeavors, unforseen expenses,  for and provide hopes and dreams through the same vision that Deputy Dhaliwal had.
 
-'Pioneering' deputy dies after being shot from behind</p>
+        'Pioneering' deputy dies after being shot from behind</p>
       </div>
     </div>
   </div>
