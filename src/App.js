@@ -7,6 +7,7 @@ import HomePage from './pages/home-page/home-page'
 import BrowseFundrisers from './pages/browse-fundrisers/browse-fundrisers'
 import Fundriser from './pages/fundriser/fundriser'
 import Navbar from './components/navbar/navbar.component'
+import Signin from './pages/signin/signin.component'
 
 class App extends React.Component {
   constructor() {
@@ -18,7 +19,6 @@ class App extends React.Component {
       search:''
     }
   }
-  
   
 
   render() {
@@ -36,6 +36,9 @@ class App extends React.Component {
       </Switch>
       <Switch>
         <Route exact path='/fundriser' component = { Fundriser } />
+      </Switch>
+      <Switch>
+        <Route exact path='/login' component = { Signin } />
       </Switch>
     </div>
   );
