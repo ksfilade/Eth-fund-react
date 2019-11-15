@@ -8,17 +8,14 @@ import BrowseFundrisers from './pages/browse-fundrisers/browse-fundrisers'
 import Fundriser from './pages/fundriser/fundriser'
 import Navbar from './components/navbar/navbar.component'
 import Signin from './pages/signin/signin.component'
-
+import Signup from './pages/signup/signup.component'
+import { connect } from 'react-redux'
+import { setCurrentUser} from './redux/user/user.actions'
 class App extends React.Component {
-  constructor() {
-    super()
-    this.state = {
-      monsters: [
-       
-      ],
-      search:''
-    }
-  }
+  // componentDidMount() {
+ 
+  //  this.props.setCurrentUser({name:'kire'})
+  // }
   
 
   render() {
@@ -40,9 +37,15 @@ class App extends React.Component {
       <Switch>
         <Route exact path='/login' component = { Signin } />
       </Switch>
+      <Switch>
+        <Route exact path='/register' component = { Signup } />
+      </Switch>
     </div>
   );
 }
 }
+const mapDispatchToProps = dispatch => ({
+  setCurrentUser: user => dispatch(setCurrentUser(user))
+});
 
-export default App;
+export default connect(null,mapDispatchToProps)(App);
