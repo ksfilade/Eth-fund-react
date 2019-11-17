@@ -9,6 +9,8 @@ import Fundriser from './pages/fundriser/fundriser'
 import Navbar from './components/navbar/navbar.component'
 import Signin from './pages/signin/signin.component'
 import Signup from './pages/signup/signup.component'
+import CreateFundriser from './pages/createFundriser/createFundriser.component'
+
 import { connect } from 'react-redux'
 import { setCurrentUser} from './redux/user/user.actions'
 class App extends React.Component {
@@ -39,6 +41,9 @@ class App extends React.Component {
       </Switch>
       <Switch>
         <Route exact path='/register' component = { Signup } />
+      </Switch>
+      <Switch>
+        <Route exact path='/createfundriser' component = { CreateFundriser } />
       </Switch>
     </div>
   );

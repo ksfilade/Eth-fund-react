@@ -8,6 +8,9 @@ constructor(){
     console.log('i am clicked')
   }
 }
+componentDidMount(){
+   console.log(this.props);
+}
    
 
 
