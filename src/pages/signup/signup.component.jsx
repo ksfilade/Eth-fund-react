@@ -1,6 +1,8 @@
 import React from 'react'
 import './signup.styles.scss';
 import axios from 'axios'
+import { connect } from 'react-redux'
+import { setCurrentUser } from '../../redux/user/user.actions'
 class  Signup extends React.Component {
     constructor(){
         super();  
@@ -29,11 +31,8 @@ class  Signup extends React.Component {
         axios.post('https://enigmatic-fortress-52205.herokuapp.com/users', user,{headers: { 'Content-Type': 'application/json'}})
         .then(res => {
             console.log(res.data);
-            this.setState({
-                token: res.data.token
-            })
-            console.log(this.state.token);
-      })
+            this.props.setCurrentUser({ name: res.data.user.email, isLogedin: true, token: res.data.token })
+        })
     }
 
     render () {
@@ -59,4 +58,8 @@ class  Signup extends React.Component {
         )
     }
 }
-export default Signup
+const mapDispatchToProps = dispatch => ({
+    setCurrentUser: user => dispatch(setCurrentUser(user))
+});
+
+export default connect (null, mapDispatchToProps) (Signup)

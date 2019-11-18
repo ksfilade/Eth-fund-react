@@ -1,5 +1,7 @@
 const INITIAL_STATE = {
-    currentUser : 'bojan'
+    currentUser : '',
+    isLogedin: false,
+    token: ''
 }
 
 const userReducer = (state = INITIAL_STATE, action) => {
@@ -7,7 +9,17 @@ const userReducer = (state = INITIAL_STATE, action) => {
         case 'SET_CURRENT_USER':
             return{
                 ...state,
-                currentUser: action.payload
+                currentUser: action.payload.name,
+                isLogedin: action.payload.isLogedin,
+                token: action.payload.token
+            }
+            case 'LOGOUT_USER':
+                console.log('log out user here');
+            return{
+                ...state,
+                currentUser: '',
+                isLogedin: false,
+                token: ''
             }
 
         default:

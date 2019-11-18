@@ -19,17 +19,17 @@ return(
   <div className = 'featured__item'>
      <img src="https://via.placeholder.com/250x150" alt=""/>
      <div className = 'featured__item__location'>
-        <h3 className= 'featured__item__location__text'>Skopje,Macedonia</h3>
+        <h3 className= 'featured__item__location__text'>{this.props.item.city},{this.props.item.country}</h3>
      </div>
      <div className = 'featured__item__title'>
-        <h3 className= 'featured__item__title__text'>Lorem Ipsum Ipsum lorem </h3>
+        <h3 className= 'featured__item__title__text'>{this.props.item.title} </h3>
      </div>
      <div className = 'featured__item__content'>
-        <p className = 'featured__item__content__text'>Lorem ipsum dolor sit amet consectetur adipisicing elit Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+        <p className = 'featured__item__content__text'>{this.props.item.description}</p>
      </div>
      <ProgressBar></ProgressBar>
      <div className = 'featured__item__raised'>
-        <p className = 'featured__item__raised__text'><b>0$ raised </b> from 700000</p>
+        <p className = 'featured__item__raised__text'><b>0$ raised </b> from {this.props.item.goalMoney}</p>
      </div>
      
      

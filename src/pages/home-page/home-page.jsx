@@ -18,7 +18,7 @@ class HomePage extends React.Component {
       <div className="App">      
         <div>
           <Banner></Banner>
-          <FeaturedFundrisers></FeaturedFundrisers>
+          {/* <FeaturedFundrisers></FeaturedFundrisers> */}
         </div>
         
       </div>
