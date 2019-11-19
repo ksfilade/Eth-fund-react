@@ -13,23 +13,24 @@ class Navbar extends React.Component {
       isLogedin: props.isLogedin,
       token: props.token
     };
-    
+
   }
-  
-  logOut = () =>{
-    axios.post('https://enigmatic-fortress-52205.herokuapp.com/users/logout',null,
-      {headers: { 'Content-Type': 'application/json','token': this.props.token }
-    }).then((res)=>{
-      if(res.data.success)
-        this.props.logoutUser()
-    })
-   
+
+  async logOut() {
+    let res = await axios.post('https://enigmatic-fortress-52205.herokuapp.com/users/logout', null,
+      {
+        headers: { 'Content-Type': 'application/json', 'token': this.props.token }
+      })
+      let { data } = res
+      if (data.success)
+       this.props.logoutUser()
+
   }
   render() {
     return (
       <div className='navbar'>
         <div className="navbar__discover">
-          <Link to={'/browse'}>
+          <Link to={'/browse'} className='navbar__link'>
             <h1>Discover</h1>
           </Link>
         </div>
@@ -37,37 +38,37 @@ class Navbar extends React.Component {
           <h1>Category</h1>
         </div>
         <div className="navbar__title">
-          <Link to={'/'}>
+          <Link to={'/'} className='navbar__link'>
             <h1>goFundMe</h1>
           </Link>
         </div>
         {!this.props.isLogedin &&
           <div className="navbar__register">
-            <Link to={'/register'}>
+            <Link to={'/register'} className='navbar__link'>
               <h1>register</h1>
             </Link>
           </div>
         }
         {!this.props.isLogedin &&
           <div className="navbar__login">
-            <Link to={'/login'}>
+            <Link to={'/login'} className='navbar__link'>
               <h1>login</h1>
             </Link>
           </div>
         }
-        {this.props.isLogedin  &&
+        {this.props.isLogedin &&
           <div className="navbar__loged_user">
             <h3>hello ksfialde@yahoo.com</h3>
           </div>
         }
         {this.props.isLogedin &&
-          <div className="navbar__login" onClick={this.logOut}>
-              <h1>log out</h1>
+          <div className="navbar__login" onClick={this.logOut.bind(this, 2)}>
+            <h1>log out</h1>
           </div>
         }
 
         <div className="navbar__start">
-          <Link to={'/createFundriser'}>
+          <Link to={'/createFundriser'} className='navbar__link'>
             <h1>start</h1>
           </Link>
         </div>

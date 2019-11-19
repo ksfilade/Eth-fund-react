@@ -2,11 +2,38 @@
     position: fixed;
     width: 100%;
     z-index: 2;
-    background-color: whitesmoke;
+    
     padding: 5px 80px;
     display: flex;
+    
+    &__link{
+        color: black;
+        text-decoration: none;
+        position: relative;
+    }
+    &__link::after {
+        content: "";
+        width: 100%;
+        visibility: visible;
+        position: absolute;
+        left: 0;
+        height: 2px;
+        bottom: 15%;
+        background-color: #000;
+        visibility: hidden;
+        -webkit-transform: scaleX(0);
+        transform: scaleX(0);
+        -webkit-transition: all 0.1s ease-in-out 0s;
+        transition: all 0.2s ease-in-out 0s;
+      }
+    &__link:hover:after {
+        visibility: visible;
+        -webkit-transform: scaleX(1);
+        transform: scaleX(1);
+      }
+    // border: solid black 1px;
     &__discover{
-        border:solid black 1px;
+        
         width: 10%;
         h1{
             font-size: 16px;
@@ -17,7 +44,6 @@
         justify-content: center;
     }
     &__category{
-        border:solid black 1px;
         width: 10%;
         h1{
             font-size: 16px;
@@ -28,7 +54,6 @@
         justify-content: center;
     }
     &__title{
-        border:solid black 1px;
         width: 40%;
         text-align:center;
         text-align: center;
@@ -37,7 +62,6 @@
         justify-content: center;
     }
     &__register{
-        border:solid black 1px;
         width: 10%;
         h1{
             font-size: 16px;
@@ -48,7 +72,6 @@
         justify-content: center;
     }
     &__login{
-        border:solid black 1px;
         width: 10%;
 
         text-align: center;
@@ -70,7 +93,6 @@
 
     }
     &__start{
-        border:solid black 1px;
         width: 10%;
         text-align: center;
         display: flex;

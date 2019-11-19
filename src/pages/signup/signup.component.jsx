@@ -22,7 +22,6 @@ class  Signup extends React.Component {
         this.setState({
           [field]: e.target.value
         })
-        console.log(this.state);
       }
       submitHandler = () => {
         let user = this.state;
@@ -30,7 +29,6 @@ class  Signup extends React.Component {
         delete user.token
         axios.post('https://enigmatic-fortress-52205.herokuapp.com/users', user,{headers: { 'Content-Type': 'application/json'}})
         .then(res => {
-            console.log(res.data);
             this.props.setCurrentUser({ name: res.data.user.email, isLogedin: true, token: res.data.token })
         })
     }
