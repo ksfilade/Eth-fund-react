@@ -14,7 +14,6 @@ const userReducer = (state = INITIAL_STATE, action) => {
                 token: action.payload.token
             }
             case 'LOGOUT_USER':
-                console.log('log out user here');
             return{
                 ...state,
                 currentUser: '',

@@ -1,21 +1,145 @@
-.signup{
+.startfundriser{
     width: 100%;
     height: 100%;
     padding-top: 1px ;
+    background-color: #fbf8f6;
+    padding-bottom: 20px;
     &__box{
-        border:solid black 1px;
-        width: 500px;
-        height: 500px;    
+        background-color: white;
+        border-radius: 5px;
+        box-shadow: 0 10px 15px 0 rgba(0,0,0,.1);
+        width: 600px;
+        height: 700px;    
         margin: auto;
         margin-top:120px;
-        padding: 30px;
+        &__title{
+            display: flex;
+            justify-content: center;
+            border-bottom: solid  #ddd 1px;
+            
+        }
+       
         &__label{
 
         }
-        &__input{
-            height: 20px;
-            width: 100%;
+        &__credentials{
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            padding: 10px 150px 10px 150px;
+            &__input{
+                margin-top: 30px ;
+                height: 40px;
+                font-size: 16px;
+                border: solid 1px #ddd;
+                border-radius: 4px;
+                padding-left: 12px;
+                width: 100%;
+            }
+            &__input:focus{
+                outline: none !important;
+                border:1px solid #4CAF50;
+                box-shadow: 0 0 10px #4CAF50;
+            }
+            &__upload{
+                border: solid black 1px;
+            }
+           
+        }
+        &__button{
+            padding: 10px 140px 10px 150px;
+            &__startfundriser{
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                border-radius: 4px;
+                height: 50px;
+                align-items: center;
+                border: solid #66d5a2 1px;
+                cursor: pointer;
+                h3{
+                    color:#00b964
+                }
+            }
+            &__startfundriser:hover{
+                border: solid #00a056 1px;
+            }
+        }
+
+        &__wrong_credentials{
+            color: red;
         }
     }
 
+}
+.inputfile-1 + label {
+    color: #00b964;
+    background-color: white;
+    border:solid #00b964 1px;
+    
+}
+
+.inputfile-1:focus + label,
+.inputfile-1.has-focus + label,
+.inputfile-1 + label:hover {
+    background-color: #00b964;
+    color: white;
+    fill: white;
+}
+.js .inputfile {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+    
+}
+
+.inputfile + label {
+    max-width: 80%;
+    font-size: 1.25rem;
+    /* 20px */
+    font-weight: 700;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
+    display: inline-block;
+    overflow: hidden;
+    padding: 0.625rem 1.25rem;
+    /* 10px 20px */
+}
+
+.no-js .inputfile + label {
+    display: none;
+}
+
+.inputfile:focus + label,
+.inputfile.has-focus + label {
+    // outline: 1px dotted #000;
+    // outline: -webkit-focus-ring-color auto 5px;
+}
+
+.inputfile + label * {
+    /* pointer-events: none; */
+    /* in case of FastClick lib use */
+}
+.inputfile:hover + label svg {
+    fill: white;
+}
+.inputfile + label svg {
+    width: 1em;
+    height: 1em;
+    vertical-align: middle;
+    fill: #00b964;
+    margin-top: -0.25em;
+    /* 4px */
+    margin-right: 0.25em;
+    /* 4px */
+}
+.inputfile-1{
+    margin-top:30px;
+}
+.margin{
+    margin-top:-60px;
 }

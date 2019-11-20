@@ -1,13 +1,12 @@
 .navbar{
-    position: fixed;
-    width: 100%;
+    width: 73%;
+    max-width: 1000px;
     z-index: 2;
-    
-    padding: 5px 80px;
     display: flex;
-    
+    background-color: white;
+    justify-content: center;
     &__link{
-        color: black;
+        color: #00b964;
         text-decoration: none;
         position: relative;
     }
@@ -19,7 +18,7 @@
         left: 0;
         height: 2px;
         bottom: 15%;
-        background-color: #000;
+        background-color: #00b964;
         visibility: hidden;
         -webkit-transform: scaleX(0);
         transform: scaleX(0);
@@ -83,7 +82,6 @@
         }
     }
     &__loged_user{
-        border:solid black 1px;
         width: 20%;
 
         text-align: center;
@@ -102,4 +100,14 @@
             font-size: 16px;
         }
     }
+}
+.navbar__wrap{
+    display: flex;
+    align-items: center;
+    height: 90px;
+    width: 100%;
+    justify-content: center;
+    position: fixed;
+    background-color: white;
+    z-index: 2;
 }

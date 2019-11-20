@@ -3,7 +3,6 @@ import './signin.styles.scss';
 import axios from 'axios';
 import { connect } from 'react-redux'
 import { setCurrentUser } from '../../redux/user/user.actions'
-import { async } from 'q';
 
 class Signin extends React.Component {
     constructor(props) {
@@ -25,34 +24,40 @@ class Signin extends React.Component {
             [field]: e.target.value
         })
     }
-    submitHandler = async() => {
+    submitHandler = async () => {
         let { email, password } = this.state;
         // delete user.repatPassword;
-        let res = await axios.post('https://enigmatic-fortress-52205.herokuapp.com/users/login', {email, password}).catch(() =>{
+        let res = await axios.post('https://enigmatic-fortress-52205.herokuapp.com/users/login', { email, password }).catch(() => {
             console.log('error');
         })
-        if(res.data.success == undefined){
-            this.props.setCurrentUser({ name: res.data.user.email, isLogedin: true, token: res.data.token })
+        console.log(res.data);
+        if (res.data.success == undefined) {
+            this.props.setCurrentUser({ name: res.data.user.firstName, isLogedin: true, token: res.data.token })
             this.props.history.push('/')
         }
         else
             this.setState({
                 wrondCredentials: true
             })
-          
+
     }
     render() {
         return (
             <div className='signin'>
                 <div className='signin__box'>
-                    <h3 className='signup__box__label' >email</h3>
-                    <input className='signup__box__input' type="text" value={this.state.email} onChange={this.setField.bind(null, 'email')} />
-                    <h3 className='signup__box__label'>Password</h3>
-                    <input className='signup__box__input' type="password" value={this.state.password} onChange={this.setField.bind(null, 'password')} />
-                    {this.state.wrondCredentials && <p className='signin__box__wrong_credentials'>wrong credentials</p> }
+                    <div className='signin__box__title'>
+                        <h1>Sign In</h1>
+                    </div>
+                    <div className='signin__box__credentials'>
+                        <input className='signin__box__credentials__input' type="text" value={this.state.email} placeholder='Email' onChange={this.setField.bind(null, 'email')} />
+                        <input className='signin__box__credentials__input' type="password" placeholder='Password' value={this.state.password} onChange={this.setField.bind(null, 'password')} />
+                    </div>
+                    {this.state.wrondCredentials && <p className='signin__box__wrong_credentials'>wrong credentials</p>}
                     <div className='signin__box__button'>
-                        
-                        <button onClick={this.submitHandler}>login</button>
+
+                       <div className='signin__box__button__signin' onClick={this.submitHandler}>
+                           <h3>Sign in to GoFundMe</h3>
+                       </div>
                     </div>
                 </div>
             </div>

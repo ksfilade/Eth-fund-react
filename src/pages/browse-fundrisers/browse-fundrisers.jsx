@@ -24,16 +24,15 @@ class BrowseFundrisers extends React.Component {
     render() {
       
     return (
+      <div className='browse__wrap'>
         <div className = 'browse'>
            {
             this.state.results.map(el =>(
               <FundriserItem item = {el} key={el._id}></FundriserItem>
-            ))
-            
+            ))  
           }
-       
         </div>
-        
+      </div>
     );
   }
   }
