@@ -30,6 +30,7 @@
         -webkit-transform: scaleX(1);
         transform: scaleX(1);
       }
+
     // border: solid black 1px;
     &__discover{
         
@@ -110,4 +111,9 @@
     position: fixed;
     background-color: white;
     z-index: 2;
+}
+.active::after{
+    visibility: visible;
+    -webkit-transform: scaleX(1);
+    transform: scaleX(1);
 }

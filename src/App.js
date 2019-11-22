@@ -10,7 +10,7 @@ import Navbar from './components/navbar/navbar.component'
 import Signin from './pages/signin/signin.component'
 import Signup from './pages/signup/signup.component'
 import CreateFundriser from './pages/createFundriser/createFundriser.component'
-
+import socketIOClient from 'socket.io-client'
 import { connect } from 'react-redux'
 import { setCurrentUser} from './redux/user/user.actions'
 class App extends React.Component {
@@ -18,7 +18,16 @@ class App extends React.Component {
  
   //  this.props.setCurrentUser({name:'kire'})
   // }
+  componentDidMount() {
+    // const { endpoint } = this.state;
+    const socket = socketIOClient('https://enigmatic-fortress-52205.herokuapp.com');
+    socket.on('countupdatednetwork', (obj)=>{
+      console.log('cont updated network');
+      console.log(obj);
+     })
   
+    // socket.on("FromAPI", data => this.setState({ response: data }));
+  }
 
   render() {
     

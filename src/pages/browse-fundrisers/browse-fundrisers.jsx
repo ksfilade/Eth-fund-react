@@ -1,5 +1,7 @@
 import React from 'react';
 import FundriserItem from '../../components/fundraisers-item/fundriser-item.component'
+import DonateModal from '../../components/donate-modal/donate-modal.component'
+
 import './browse-fundrisers.scss'
 import axios from 'axios'
 class BrowseFundrisers extends React.Component {
@@ -31,7 +33,9 @@ class BrowseFundrisers extends React.Component {
               <FundriserItem item = {el} key={el._id}></FundriserItem>
             ))  
           }
+          <DonateModal></DonateModal>
         </div>
+        
       </div>
     );
   }
