@@ -9,9 +9,10 @@
         border-radius: 5px;
         box-shadow: 0 10px 15px 0 rgba(0,0,0,.1);
         width: 600px;
-        height: 700px;    
+        height: 100%;    
         margin: auto;
         margin-top:120px;
+        padding-bottom: 20px;
         &__title{
             display: flex;
             justify-content: center;
@@ -30,6 +31,15 @@
             &__input{
                 margin-top: 30px ;
                 height: 40px;
+                font-size: 16px;
+                border: solid 1px #ddd;
+                border-radius: 4px;
+                padding-left: 12px;
+                width: 100%;
+            }
+            textarea{
+                margin-top: 30px ;
+                height: 140px;
                 font-size: 16px;
                 border: solid 1px #ddd;
                 border-radius: 4px;

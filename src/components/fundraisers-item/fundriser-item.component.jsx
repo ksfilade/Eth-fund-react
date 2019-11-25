@@ -9,10 +9,10 @@ class FundriserItem extends React.Component {
       }
    }
    componentDidMount() {
-      
+      console.log(this.props);
    }
-   clickedView = () =>{
-     console.log(this.props.item._id);
+   clickedView = () => {
+      console.log(this.props.item._id);
    }
 
 
@@ -37,17 +37,17 @@ class FundriserItem extends React.Component {
                <p className='featured__item__raised__text'><b>0$ raised </b> from {this.props.item.goalMoney}</p>
             </div>
             <div className='featured__item__buttons'>
-               <div className='featured__item__buttons__view' onClick={ this.clickedView }  >
+               <div className='featured__item__buttons__view' onClick={this.clickedView}  >
                   <h3>View</h3>
                </div>
-               <div className='featured__item__buttons__donate' >
+               <div className='featured__item__buttons__donate' onClick={ () =>{ this.props.openModal(this.props.item.title, this.props.item.walletAddress) }} >
                   <h3>Donate</h3>
                </div>
             </div>
          </div>
-            )
-          }
-          
-          }
-          export default FundriserItem;
-            
+      )
+   }
+
+}
+export default FundriserItem;
+
