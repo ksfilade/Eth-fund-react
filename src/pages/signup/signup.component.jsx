@@ -3,6 +3,8 @@ import './signup.styles.scss';
 import axios from 'axios'
 import { connect } from 'react-redux'
 import { setCurrentUser } from '../../redux/user/user.actions'
+import withSign from '../withSign/withSign'
+
 class Signup extends React.Component {
     constructor() {
         super();
@@ -15,7 +17,7 @@ class Signup extends React.Component {
             token: ''
         };
         this.setField = this.setField.bind(this)
-        this.submitHandler = this.submitHandler.bind(this)
+        // this.submitHandler = this.submitHandler.bind(this)
     }
 
     setField(field, e) {
@@ -23,15 +25,15 @@ class Signup extends React.Component {
             [field]: e.target.value
         })
     }
-    submitHandler = () => {
-        let user = this.state;
-        // delete user.repatPassword;
-        delete user.token
-        axios.post('https://enigmatic-fortress-52205.herokuapp.com/users', user, { headers: { 'Content-Type': 'application/json' } })
-            .then(res => {
-                this.props.setCurrentUser({ name: res.data.user.email, isLogedin: true, token: res.data.token })
-            })
-    }
+    // submitHandler = () => {
+    //     let user = this.state;
+    //     // delete user.repatPassword;
+    //     delete user.token
+    //     axios.post('https://enigmatic-fortress-52205.herokuapp.com/users', user, { headers: { 'Content-Type': 'application/json' } })
+    //         .then(res => {
+    //             this.props.setCurrentUser({ name: res.data.user.email, isLogedin: true, token: res.data.token })
+    //         })
+    // }
 
     render() {
         return (
@@ -50,7 +52,8 @@ class Signup extends React.Component {
                     </div>
                     <div className='signup__box__button'>
 
-                        <div className='signup__box__button__signup' onClick={this.submitHandler}>
+                        <div className='signup__box__button__signup' onClick={() => this.props.submitHandler('',
+                            { email: this.state.email, password: this.state.password, firstName: this.state.firstName, lastName: this.state.lastName })}>
                             <h3>Sign Up to GoFundMe</h3>
                         </div>
                     </div>
@@ -64,4 +67,4 @@ const mapDispatchToProps = dispatch => ({
     setCurrentUser: user => dispatch(setCurrentUser(user))
 });
 
-export default connect(null, mapDispatchToProps)(Signup)
+export default connect(null, mapDispatchToProps)(withSign(Signup))

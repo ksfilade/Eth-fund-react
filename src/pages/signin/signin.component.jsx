@@ -3,7 +3,7 @@ import './signin.styles.scss';
 import axios from 'axios';
 import { connect } from 'react-redux'
 import { setCurrentUser } from '../../redux/user/user.actions'
-
+import withSign from '../withSign/withSign'
 class Signin extends React.Component {
     constructor(props) {
         super();
@@ -16,7 +16,7 @@ class Signin extends React.Component {
             wrondCredentials: false
         };
         this.setField = this.setField.bind(this)
-        this.submitHandler = this.submitHandler.bind(this)
+        // this.submitHandler = this.submitHandler.bind(this)
     }
 
     setField(field, e) {
@@ -24,23 +24,10 @@ class Signin extends React.Component {
             [field]: e.target.value
         })
     }
-    submitHandler = async () => {
-        let { email, password } = this.state;
-        // delete user.repatPassword;
-        let res = await axios.post('https://enigmatic-fortress-52205.herokuapp.com/users/login', { email, password }).catch(() => {
-            console.log('error');
-        })
-        console.log(res.data);
-        if (res.data.success == undefined) {
-            this.props.setCurrentUser({ name: res.data.user.firstName, isLogedin: true, token: res.data.token })
-            this.props.history.push('/')
-        }
-        else
-            this.setState({
-                wrondCredentials: true
-            })
-
+    componentDidMount(){
+        console.log(this.props);
     }
+    
     render() {
         return (
             <div className='signin'>
@@ -55,9 +42,9 @@ class Signin extends React.Component {
                     {this.state.wrondCredentials && <p className='signin__box__wrong_credentials'>wrong credentials</p>}
                     <div className='signin__box__button'>
 
-                       <div className='signin__box__button__signin' onClick={this.submitHandler}>
-                           <h3>Sign in to GoFundMe</h3>
-                       </div>
+                        <div className='signin__box__button__signin' onClick={() => this.props.submitHandler('login', { email:this.state.email, password:this.state.password }) }>
+                            <h3>Sign in to GoFundMe</h3>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -74,4 +61,4 @@ const mapDispatchToProps = dispatch => ({
     setCurrentUser: user => dispatch(setCurrentUser(user))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Signin)
+export default connect(mapStateToProps, mapDispatchToProps)(withSign(Signin))

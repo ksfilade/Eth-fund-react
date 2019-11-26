@@ -7,9 +7,9 @@ import { setCurrentUser, logoutUser } from '../../redux/user/user.actions'
 
 class Navbar extends React.Component {
   constructor(props) {
-    super();
+    super(props);
     this.state = {
-      user: props.currentUser,
+      currentUser: props.currentUser,
       isLogedin: props.isLogedin,
       token: props.token
     };
@@ -26,6 +26,13 @@ class Navbar extends React.Component {
       this.props.logoutUser()
 
   }
+  // componentDidUpdate(){
+  //   console.log('updated nav');
+  //   console.log(this.props.currentUser);
+  //   this.setState({
+  //     user: this.props.currentUser
+  //   })
+  // }
   render() {
     return (
       <div className='navbar__wrap'>
@@ -61,7 +68,7 @@ class Navbar extends React.Component {
           }
           {this.props.isLogedin &&
             <div className="navbar__loged_user">
-              <h8>Hello {this.state.user}</h8>
+              <h8>Hello {this.props.currentUser}</h8>
             </div>
           }
           {this.props.isLogedin &&

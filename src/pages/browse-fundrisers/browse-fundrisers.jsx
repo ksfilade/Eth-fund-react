@@ -36,8 +36,6 @@ class BrowseFundrisers extends React.Component {
       this.setState({
         results: results.data.results
       })
-      console.log('here results');
-      console.log(this.state.results);
     }
     
   
