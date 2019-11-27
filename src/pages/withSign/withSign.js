@@ -1,6 +1,10 @@
 import React from 'react';
 import axios from 'axios'
 import { setCurrentUser } from '../../redux/user/user.actions'
+import Spiner from '../../components/spiner/spiner.component'
+import { validateEmail } from '../../helpers/checkFunctions'
+import { checkIfMatch } from '../../helpers/checkFunctions'
+import { checkIfEmpty } from '../../helpers/checkFunctions'
 
 const withSign = WrappedComponent => {
   class withSign extends React.Component {
@@ -8,7 +12,10 @@ const withSign = WrappedComponent => {
       super(props);
 
       this.state = {
-        data: []
+        data: [],
+        showErrorMessage: false,
+        message: 'asdad'
+
       };
     }
 
@@ -16,27 +23,45 @@ const withSign = WrappedComponent => {
       console.log('hello wraped component');
     }
     submitHandler = async (signType, data) => {
-        // let { email, password } = data ;
-        // delete user.repatPassword;
-        let res = await axios.post('https://enigmatic-fortress-52205.herokuapp.com/users/'+signType, data).catch(() => {
-            console.log('error');
+      // console.log(validateEmail(data.email));
+      if (!validateEmail(data.email))
+        return this.setState({
+          showErrorMessage: true,
+          message: 'Email is not Valid'
         })
-        console.log(res);
-        if (res.data.success == undefined) {
-            this.props.setCurrentUser({ name: res.data.user.firstName, isLogedin: true, token: res.data.token })
-            this.props.history.push('/')
-        }
-        else
-            this.setState({
-                wrondCredentials: true
-            })
+
+      if (data.repatPassword != undefined && !checkIfMatch(data.password, data.repatPassword))
+        return this.setState({
+          showErrorMessage: true,
+          message: 'Passwords do not Match'
+        })
+
+      if (data.firstName != undefined && !checkIfEmpty(data.firstName))
+        return this.setState({
+          showErrorMessage: true,
+          message: 'First Name is requierd Field'
+        })
+
+
+      let res = await axios.post('https://enigmatic-fortress-52205.herokuapp.com/users/' + signType, data).catch(() => {
+        console.log('error');
+      })
+      if (res.data.success == undefined) {
+        this.props.setCurrentUser({ name: res.data.user.firstName, isLogedin: true, token: res.data.token })
+        this.props.history.push('/')
+      }
+      else
+        this.setState({
+          wrondCredentials: true
+        })
+      console.log(this.state.wrondCredentials);
 
     }
     render() {
       const { dataSource, ...otherProps } = this.props;
 
-        return <WrappedComponent submitHandler={this.submitHandler} {...otherProps} />
-      
+      return <WrappedComponent submitHandler={this.submitHandler} showErrorMessage={this.state.showErrorMessage} message={this.state.message} {...otherProps} />
+
     }
   }
 

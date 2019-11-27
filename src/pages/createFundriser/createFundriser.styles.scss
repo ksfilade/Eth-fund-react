@@ -76,11 +76,12 @@
             }
         }
 
-        &__wrong_credentials{
-            color: red;
-        }
+        
     }
-
+    &__error_message{
+        color: red;
+        padding: 0px 150px 0px 150px;
+    }
 }
 .inputfile-1 + label {
     color: #00b964;

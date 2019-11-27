@@ -15,7 +15,9 @@ export async function payWithEth(walletAddress, amount) {
         {
             from: account[0],
             value: web3.utils.toWei(amount, 'ether')
-            // validate if it's ETH swap
         },
     )
+}
+export async function checkAddress(walletAddress) {
+    return web3.utils.isAddress(walletAddress)
 }

@@ -4,10 +4,11 @@ import axios from 'axios'
 import { connect } from 'react-redux'
 import { setCurrentUser } from '../../redux/user/user.actions'
 import withSign from '../withSign/withSign'
-
+import Spiner from '../../components/spiner/spiner.component'
+import ErrorMessage from '../../components/error-message/error-message.component'
 class Signup extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             email: '',
             password: '',
@@ -34,6 +35,9 @@ class Signup extends React.Component {
     //             this.props.setCurrentUser({ name: res.data.user.email, isLogedin: true, token: res.data.token })
     //         })
     // }
+    componentDidMount(){
+        console.log(this.props);
+    }
 
     render() {
         return (
@@ -50,10 +54,11 @@ class Signup extends React.Component {
                         <input className='signup__box__credentials__input' placeholder='First Name' type="text" value={this.state.firstName} onChange={this.setField.bind(null, 'firstName')} />
                         <input className='signup__box__credentials__input' placeholder='Last Name' type="text" value={this.state.lastName} onChange={this.setField.bind(null, 'lastName')} />
                     </div>
+                    {this.props.showErrorMessage && <ErrorMessage message = {this.props.message}></ErrorMessage>}
                     <div className='signup__box__button'>
-
+                        
                         <div className='signup__box__button__signup' onClick={() => this.props.submitHandler('',
-                            { email: this.state.email, password: this.state.password, firstName: this.state.firstName, lastName: this.state.lastName })}>
+                            { email: this.state.email, password: this.state.password, firstName: this.state.firstName, lastName: this.state.lastName, repatPassword: this.state.repatPassword })}>
                             <h3>Sign Up to GoFundMe</h3>
                         </div>
                     </div>
