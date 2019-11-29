@@ -55,7 +55,7 @@ class Navbar extends React.Component {
           {!this.props.isLogedin &&
             <div className="navbar__register">
               <Link to={'/register'} className='navbar__link'>
-                <h1>register</h1>
+                <h1>Register</h1>
               </Link>
             </div>
           }

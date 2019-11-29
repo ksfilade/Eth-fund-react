@@ -59,7 +59,8 @@ class Signup extends React.Component {
                         
                         <div className='signup__box__button__signup' onClick={() => this.props.submitHandler('',
                             { email: this.state.email, password: this.state.password, firstName: this.state.firstName, lastName: this.state.lastName, repatPassword: this.state.repatPassword })}>
-                            <h3>Sign Up to GoFundMe</h3>
+                            {!this.props.showSpiner && <h3>Sign Up to GoFundMe</h3>}
+                            {this.props.showSpiner && <Spiner></Spiner>}
                         </div>
                     </div>
                 </div>

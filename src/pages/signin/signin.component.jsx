@@ -4,9 +4,12 @@ import axios from 'axios';
 import { connect } from 'react-redux'
 import { setCurrentUser } from '../../redux/user/user.actions'
 import withSign from '../withSign/withSign'
+import ErrorMessage from '../../components/error-message/error-message.component'
+import Spiner from '../../components/spiner/spiner.component'
+
 class Signin extends React.Component {
     constructor(props) {
-        super();
+        super(props);
         this.state = {
             email: '',
             password: '',
@@ -40,10 +43,12 @@ class Signin extends React.Component {
                         <input className='signin__box__credentials__input' type="password" placeholder='Password' value={this.state.password} onChange={this.setField.bind(null, 'password')} />
                     </div>
                     {this.state.wrondCredentials && <p className='signin__box__wrong_credentials'>wrong credentials</p>}
+                    {this.props.showErrorMessage && <ErrorMessage message = {this.props.message}></ErrorMessage>}
                     <div className='signin__box__button'>
 
                         <div className='signin__box__button__signin' onClick={() => this.props.submitHandler('login', { email:this.state.email, password:this.state.password }) }>
-                            <h3>Sign in to GoFundMe</h3>
+                            {!this.props.showSpiner && <h3>Sign In to GoFundMe</h3>}
+                            {this.props.showSpiner && <Spiner></Spiner>}
                         </div>
                     </div>
                 </div>

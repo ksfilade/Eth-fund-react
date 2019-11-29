@@ -8,7 +8,8 @@ class DonateModal extends React.Component {
       super(props);
       this.state = {
          show: false,
-         amount: ''
+         amount: '',
+         showCheck: false
       }
    }
    clickedClose = () => {
@@ -25,6 +26,11 @@ class DonateModal extends React.Component {
      payWithEth(this.props.walletAddress, this.state.amount)
 
    }
+   clickedDonateAnonymous = () => {
+      this.setState({
+         showCheck : !this.state.showCheck
+      })
+   }
    render() {
       return (
          <div>{this.props.showModal &&
@@ -40,6 +46,14 @@ class DonateModal extends React.Component {
                         <input type="text" onChange={this.setField.bind(null, 'amount')} />
                         <div className='modal-content__donation__input__value'>
                            <h3>ETH</h3>
+                        </div>
+                     </div>
+                     <div className='modal-content__donation__checkbox'>
+                        <div className='modal-content__donation__checkbox__value' onClick = {this.clickedDonateAnonymous}>
+                           {this.state.showCheck && <img src="https://www.goglobie.com/wp-content/uploads/2018/03/check-image.png" alt=""/>}
+                        </div>
+                        <div className='modal-content__donation__checkbox__text'>
+                           <h3>Donate Anonymously</h3>
                         </div>
                      </div>
                      <div className='modal-content__donation__buttons'>
