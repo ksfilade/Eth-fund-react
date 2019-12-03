@@ -2,6 +2,8 @@ import React from 'react';
 import './donate-modal.styles.scss'
 import Web3 from 'web3'
 import { payWithEth } from '../../helpers/web3'
+import axios from 'axios'
+import { connect } from 'react-redux'
 
 class DonateModal extends React.Component {
    constructor(props) {
@@ -23,12 +25,25 @@ class DonateModal extends React.Component {
       })
    }
    clickedDonate = async () => {
-     payWithEth(this.props.walletAddress, this.state.amount)
+       payWithEth(this.props.walletAddress, this.state.amount, this.props.currentUser);
+      // if (await payWithEth(this.props.walletAddress, this.state.amount)) {
+      //    console.log('object');
+      //    let data = {
+      //       donationFrom: "anonymus",
+      //       donationTo: this.props.walletAddress,
+      //       amount: parseInt(this.state.amount)
+      //    }
+      //    axios.post('https://enigmatic-fortress-52205.herokuapp.com/fundrisers/donation', data, { headers: { 'Content-Type': 'application/json' } })
+      //       .then(res => {
+      //          console.log(res.data);
+               
+      //       })
+      // }
 
    }
    clickedDonateAnonymous = () => {
       this.setState({
-         showCheck : !this.state.showCheck
+         showCheck: !this.state.showCheck
       })
    }
    render() {
@@ -49,8 +64,8 @@ class DonateModal extends React.Component {
                         </div>
                      </div>
                      <div className='modal-content__donation__checkbox'>
-                        <div className='modal-content__donation__checkbox__value' onClick = {this.clickedDonateAnonymous}>
-                           {this.state.showCheck && <img src="https://www.goglobie.com/wp-content/uploads/2018/03/check-image.png" alt=""/>}
+                        <div className='modal-content__donation__checkbox__value' onClick={this.clickedDonateAnonymous}>
+                           {this.state.showCheck && <img src="https://www.goglobie.com/wp-content/uploads/2018/03/check-image.png" alt="" />}
                         </div>
                         <div className='modal-content__donation__checkbox__text'>
                            <h3>Donate Anonymously</h3>
@@ -72,5 +87,10 @@ class DonateModal extends React.Component {
    }
 
 }
-export default DonateModal;
+const mapStateToProps = state => ({
+   currentUser: state.user.currentUser,
+   isLogedin: state.user.isLogedin,
+   token: state.user.token
+ });
+export default connect(mapStateToProps, null)(DonateModal);
 

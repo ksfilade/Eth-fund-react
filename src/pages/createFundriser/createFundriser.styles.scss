@@ -28,6 +28,45 @@
             justify-content: center;
             flex-direction: column;
             padding: 10px 150px 10px 150px;
+            &__selected_category{
+                // border:solid black 1px;
+                margin-top:15px;
+                width: 150px;
+                justify-content: center;
+                display: flex;
+                height: 50px;
+                align-items: center;
+                border-radius: 7px;
+                background-color: #fbf8f6;
+                cursor: pointer;
+                -webkit-touch-callout: none; /* iOS Safari */
+                -webkit-user-select: none; /* Safari */
+                -khtml-user-select: none; /* Konqueror HTML */
+                -moz-user-select: none; /* Old versions of Firefox */
+                -ms-user-select: none; /* Internet Explorer/Edge */
+                user-select: none; 
+            }
+            &__select_category{
+                flex-basis: 100%;
+                position: absolute;
+                margin-top:13px;
+                box-shadow: 0 10px 10px 5px #f5f5f5;
+                border-radius: 5px;
+                &__items{
+                    width: 160px;
+                    background-color: white;
+                    height: 100%;
+                    border-radius: 5px;
+                    &__item{
+                        // border:solid black 1px;
+                        padding-left: 10px;
+                        cursor: pointer;
+                    }
+                    &__item:hover{
+                        color: gray;
+                    }
+                }
+            }
             &__input{
                 margin-top: 30px ;
                 height: 40px;
@@ -36,6 +75,7 @@
                 border-radius: 4px;
                 padding-left: 12px;
                 width: 100%;
+               
             }
             textarea{
                 margin-top: 30px ;

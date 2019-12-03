@@ -43,7 +43,7 @@ class App extends React.Component {
         <Route exact path='/browse' component = { BrowseFundrisers } />
       </Switch>
       <Switch>
-        <Route exact path='/fundriser' component = { Fundriser } />
+        <Route exact path='/fundrisers/:id' component = { Fundriser } />
       </Switch>
       <Switch>
         <Route exact path='/login' component = { Signin } />

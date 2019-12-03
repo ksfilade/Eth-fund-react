@@ -1,9 +1,9 @@
 .donate{
     padding:0 1.2rem 0 1.2rem; 
     width: 25rem;
-    border:solid black 1px;
-    box-shadow: 0px 0px 10px 5px #adabab;
-
+    box-shadow: 0px 5px 10px 2px rgba(0,0,0,.2);
+    margin-top:30px;
+    padding-top: 5px;
     &__title{
         height: 3rem;
     }
@@ -23,6 +23,7 @@
         font-weight: bold;
         border-radius: 5px;
         cursor: pointer;
+        
     }
     &__donators{
         margin-top: 25px;
@@ -47,4 +48,8 @@
         }
     }
     
+}
+.thumbanil{
+    width: 100%;
+    height: 500px;
 }

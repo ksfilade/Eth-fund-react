@@ -17,7 +17,13 @@
         align-items: center;
         border-radius: 7px;
         background-color: #fbf8f6;
-        
+        cursor: pointer;
+        -webkit-touch-callout: none; /* iOS Safari */
+        -webkit-user-select: none; /* Safari */
+        -khtml-user-select: none; /* Konqueror HTML */
+        -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+        user-select: none; 
     }
     &__button{
         width: 200px;
@@ -59,12 +65,21 @@
         flex-basis: 100%;
         position: absolute;
         margin-top:53px;
-        ;
+        
         &__items{
-            width: 200px;
+            width: 160px;
             background-color: white;
             height: 100%;
-            border-radius: 5px
+            border-radius: 5px;
+            
+            &__item{
+                // border:solid black 1px;
+                padding-left: 10px;
+                cursor: pointer;
+            }
+            &__item:hover{
+                color: gray;
+            }
         }
     }
     

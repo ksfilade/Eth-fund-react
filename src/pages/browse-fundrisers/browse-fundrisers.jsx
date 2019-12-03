@@ -5,7 +5,7 @@ import Search from '../../components/search/search.component'
 import './browse-fundrisers.scss'
 import axios from 'axios'
 import Spiner from '../../components/spiner/spiner.component'
-import { async } from 'q';
+
 class BrowseFundrisers extends React.Component {
     constructor() {
       super()
@@ -21,11 +21,12 @@ class BrowseFundrisers extends React.Component {
     }
     componentDidMount(){
       this.getFundrisers()
-      window.addEventListener("scroll", this.handleScroll);    
+      window.addEventListener("scroll", this.handleScroll);   
+      console.log(this.props.history); 
     }
     handleScroll = async () => {
       
-      if(document.getElementById("browse").offsetHeight-670 < window.scrollY){
+      if(document.getElementById("browse") != undefined && document.getElementById("browse").offsetHeight-670 < window.scrollY){
         await this.setState({
           skip: this.state.skip+4,
           showSpiner: true
@@ -52,6 +53,10 @@ class BrowseFundrisers extends React.Component {
         results: [...this.state.results,...results.data.results],
         showSpiner: false
       })
+    }
+    openSingleFundriser = (id) =>{
+      console.log('here');
+      console.log(id);
     }
   
     render() {

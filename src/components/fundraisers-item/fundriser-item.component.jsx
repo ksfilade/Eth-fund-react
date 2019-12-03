@@ -2,8 +2,8 @@ import React from 'react';
 import './fundriser-item.styles.scss'
 import ProgressBar from '../progress-bar/progress-bar.component'
 class FundriserItem extends React.Component {
-   constructor() {
-      super();
+   constructor(props) {
+      super(props);
       this.handleClick = (e) => {
          console.log('i am clicked')
       }
@@ -14,12 +14,16 @@ class FundriserItem extends React.Component {
    clickedView = () => {
       console.log(this.props.item._id);
    }
+   openFundriser = () =>{
+      console.log(this.props);
+      console.log(this);
+   }
 
 
 
    render() {
       return (
-         <div className='featured__item'>
+         <div className='featured__item' onClick={this.openFundriser}>
             <div className='featured__item__image_div'>
                <img src={this.props.item.image == undefined ? "https://via.placeholder.com/350x200" : "https://enigmatic-fortress-52205.herokuapp.com" + this.props.item.image} alt="" />
             </div>

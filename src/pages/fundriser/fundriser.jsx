@@ -4,25 +4,24 @@ import FundriserDonate from '../../components/fundriser-donate/fundriser-donate.
 import './fundriser.scss'
 
 class Fundriser extends React.Component {
-    // constructor() {
-    //   super()
-    //   this.state = {
-        
-    //     search:''
-    //   }
-    // }
-    
-    
-  
+    constructor() {
+      super()
+      this.state = {
+      
+      }
+    }
+    componentDidMount(){
+      console.log();
+    }
     render() {
       
     return (
-        <div className = 'fundriser'>
+        <div className = 'fundriser' >
           <div className = 'fundriser__content'>
-            <FundriserContent></FundriserContent>
+            <FundriserContent id = {this.props.match.params.id}></FundriserContent>
           </div>
           <div className = 'fundriser__donate'>
-            <FundriserDonate></FundriserDonate>
+            <FundriserDonate id = {this.props.match.params.id}></FundriserDonate>
           </div>
         </div>
         
