@@ -1,6 +1,6 @@
 
 export function  checkIfEmpty(data) {
-    console.log(data.length);
+    console.log(data.length>0);
     return data.length>0
 }
 export function validateEmail(email) {

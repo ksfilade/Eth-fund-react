@@ -105,7 +105,10 @@
       }
       &__checkbox{
         display: flex;
-        align-items: center;;
+        align-items: center;
+        &__not_loged_user{
+          opacity: 0.5;
+        }
         &__value{
           border:solid black 1px;
           width: 30px;

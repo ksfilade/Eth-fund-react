@@ -25,6 +25,10 @@
         cursor: pointer;
         
     }
+    &__all_donators{
+        height: 370px;
+        overflow-y: auto;
+    }
     &__donators{
         margin-top: 25px;
         display: flex;

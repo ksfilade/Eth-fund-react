@@ -23,8 +23,10 @@ class startfundriser extends React.Component {
             showErrorMessage: false,
             errorMessage: '',
             showCategoryDropDown: false,
-            categoryText: '',
-            categories: ['Medical','Memorial','Nonprofit','Animals','Education','Sports','Other']
+            categoryText: 'Category',
+            organaiser: '',
+            categories: ['Medical', 'Memorial', 'Nonprofit', 'Animals', 'Education', 'Sports', 'Other'],
+            useCredentials: false
         };
         this.setField = this.setField.bind(this)
         this.submitHandler = this.submitHandler.bind(this)
@@ -48,20 +50,26 @@ class startfundriser extends React.Component {
             showCategoryDropDown: !this.state.showCategoryDropDown,
         })
     }
-    selectedCategory = (item) =>{
-        console.log('cliced');
-        console.log(item);
+    selectedCategory = (item) => {
+        this.setState({
+            showCategoryDropDown: !this.state.showCategoryDropDown,
+            categoryText: item
+        })
     }
-    
-
-
+    clickedUseCredentials = () => {
+       
+        this.setState({
+           useCredentials: !this.state.useCredentials,
+           organaiser: !this.state.useCredentials ? this.props.currentUser : ''
+        })
+     }
     submitHandler = async () => {
         console.log(this.props.token);
 
-        if (!checkIfEmpty(this.state.walletAddress) && !checkIfEmpty(this.state.goalMoney) && !checkIfEmpty(this.state.title)) {
+        if (!checkIfEmpty(this.state.walletAddress) || !checkIfEmpty(this.state.goalMoney) || !checkIfEmpty(this.state.title) || !checkIfEmpty(this.state.organaiser)) {
             return this.setState({
                 showErrorMessage: true,
-                errorMessage: 'Title,Wallet Address and Goal Money are mandatory fields'
+                errorMessage: 'Title,Organaiser Wallet Address and Goal Money are mandatory fields'
             })
         }
         if (!await checkAddress(this.state.walletAddress))
@@ -69,15 +77,21 @@ class startfundriser extends React.Component {
                 showErrorMessage: true,
                 errorMessage: 'Not Valid Wallet Address'
             })
-
+        if (this.state.categoryText === 'Category')
+            return this.setState({
+                showErrorMessage: true,
+                errorMessage: 'Select Category'
+            })
         const data = new FormData()
         data.append('upload', this.state.thumbnail)
+        data.append('category', this.state.categoryText)
         data.append('city', this.state.city)
         data.append('country', this.state.country)
         data.append('title', this.state.title)
         data.append('description', this.state.description)
         data.append('goalMoney', this.state.goalMoney)
         data.append('walletAddress', this.state.walletAddress)
+        data.append('organaiser', this.state.organaiser)
         this.setState({
             showSpiner: true
         })
@@ -92,11 +106,11 @@ class startfundriser extends React.Component {
     }
 
     render() {
-        const elements = this.state.categories.map((item, index) =>(
-            <div key={index} className='startfundriser__box__credentials__select_category__items__item' onClick={ () =>{ this.selectedCategory(item) }}>
+        const elements = this.state.categories.map((item, index) => (
+            <div key={index} className='startfundriser__box__credentials__select_category__items__item' onClick={() => { this.selectedCategory(item) }}>
                 <p>{item}</p>
             </div>
-        ) )
+        ))
         return (
 
             <div className='startfundriser'>
@@ -109,8 +123,17 @@ class startfundriser extends React.Component {
                             <input className='startfundriser__box__credentials__input' placeholder='City' type="text" value={this.state.city} onChange={this.setField.bind(null, 'city')} />
                             <input className='startfundriser__box__credentials__input' placeholder='Country' type="text" value={this.state.country} onChange={this.setField.bind(null, 'country')} />
                             <input className='startfundriser__box__credentials__input' placeholder='Title' type="text" value={this.state.title} onChange={this.setField.bind(null, 'title')} />
+                            <input className='startfundriser__box__credentials__input' placeholder='organaiser' type="text" value={this.state.organaiser} onChange={this.setField.bind(null, 'organaiser')} />
+                            <div className='startfundriser__box__credentials__checkbox'>
+                                <div className='startfundriser__box__credentials__checkbox__value' onClick={this.clickedUseCredentials}>
+                                    {this.state.useCredentials && <img src="https://www.goglobie.com/wp-content/uploads/2018/03/check-image.png" alt="" />}
+                                </div>
+                                <div className='startfundriser__box__credentials__checkbox__text'>
+                                    <h5>Use First and Last Name</h5>
+                                </div>
+                            </div>
                             <div className='startfundriser__box__credentials__selected_category' onClick={this.clickedCategoy}>
-                                <p> Category</p>
+                                <p> {this.state.categoryText}</p>
                             </div>
                             {this.state.showCategoryDropDown && <div className='startfundriser__box__credentials__select_category'>
                                 <div className='search__select_category__items'>

@@ -15,6 +15,7 @@ class FundriserDonate extends React.Component {
     this.setState({
       data: (await axios.get("https://enigmatic-fortress-52205.herokuapp.com/fundrisers/donations/0x99F08ae81782DC764B94f7458A5ccE27b00B32Ec")).data
     })
+    console.log(this.state.data);
     this.state.data.forEach((element, i ,arr) => {
       arr[i].timeSpan = this.calculateTimeSpan( element.dateDonated )
     });
@@ -72,7 +73,9 @@ class FundriserDonate extends React.Component {
           </div>
 
         </div> */}
-        {elements}
+        <div className = 'donate__all_donators'>
+          {elements}
+        </div>
       </div>
 
     )

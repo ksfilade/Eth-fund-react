@@ -34,7 +34,7 @@ class FundriserItem extends React.Component {
                <h3 className='featured__item__title__text'>{this.props.item.title} </h3>
             </div>
             <div className='featured__item__content'>
-               <p className='featured__item__content__text'>{this.props.item.description}</p>
+               <p className='featured__item__content__text'>{this.props.item.description.slice(0,105) + '...'}</p>
             </div>
             <ProgressBar></ProgressBar>
             <div className='featured__item__raised'>

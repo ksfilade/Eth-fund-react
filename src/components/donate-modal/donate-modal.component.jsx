@@ -11,7 +11,7 @@ class DonateModal extends React.Component {
       this.state = {
          show: false,
          amount: '',
-         showCheck: false
+         donateAnonymous: !this.props.isLogedin
       }
    }
    clickedClose = () => {
@@ -25,7 +25,7 @@ class DonateModal extends React.Component {
       })
    }
    clickedDonate = async () => {
-       payWithEth(this.props.walletAddress, this.state.amount, this.props.currentUser);
+       payWithEth(this.props.walletAddress, this.state.amount, this.state.donateAnonymous ? 'Anonymous' : this.props.currentUser);
       // if (await payWithEth(this.props.walletAddress, this.state.amount)) {
       //    console.log('object');
       //    let data = {
@@ -36,14 +36,17 @@ class DonateModal extends React.Component {
       //    axios.post('https://enigmatic-fortress-52205.herokuapp.com/fundrisers/donation', data, { headers: { 'Content-Type': 'application/json' } })
       //       .then(res => {
       //          console.log(res.data);
-               
       //       })
       // }
 
    }
+   componentDidMount(){
+      console.log(this.props.isLogedin);
+   }
    clickedDonateAnonymous = () => {
+      if(this.props.isLogedin)
       this.setState({
-         showCheck: !this.state.showCheck
+         donateAnonymous: !this.state.donateAnonymous
       })
    }
    render() {
@@ -63,9 +66,9 @@ class DonateModal extends React.Component {
                            <h3>ETH</h3>
                         </div>
                      </div>
-                     <div className='modal-content__donation__checkbox'>
+                     <div className={!this.props.isLogedin ? 'modal-content__donation__checkbox__not_loged_user modal-content__donation__checkbox' : 'modal-content__donation__checkbox'}>
                         <div className='modal-content__donation__checkbox__value' onClick={this.clickedDonateAnonymous}>
-                           {this.state.showCheck && <img src="https://www.goglobie.com/wp-content/uploads/2018/03/check-image.png" alt="" />}
+                           {this.state.donateAnonymous && <img src="https://www.goglobie.com/wp-content/uploads/2018/03/check-image.png" alt="" />}
                         </div>
                         <div className='modal-content__donation__checkbox__text'>
                            <h3>Donate Anonymously</h3>
