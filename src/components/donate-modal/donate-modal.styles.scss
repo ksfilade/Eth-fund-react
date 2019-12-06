@@ -134,6 +134,21 @@
         margin-top: -20px;
         margin-bottom: 10px;
       }
+      &__state{
+        display: flex;
+        justify-content: center;
+        padding-top: 10px;
+      }
+      &__state__success{
+       
+        color: green;
+      }
+      &__state__processing{
+        display: flex;
+        justify-content: center;
+        padding-top: 10px;
+        color: orange;
+      }
     }
   }
   

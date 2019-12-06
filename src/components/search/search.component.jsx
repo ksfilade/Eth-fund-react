@@ -1,52 +1,72 @@
 import React, { useState } from 'react';
 import './search.styles.scss';
 
-function Search() {
-  const [showCategoryDropDown, setshowCategoryDropDown] = useState(false)
-  return (
-  <div className='browse__search'>
-      <h1>Browse fundraisers</h1>
-      <p>People around the world are raising money for what they are passionate about.</p>
-      <div className='search'>
-          <div className='search__selected_category' onClick = {() => setshowCategoryDropDown(!showCategoryDropDown)}>
-            <p> Category</p>
+class Search extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      showCategoryDropDown: false,
+      categoryText: 'Cateogry',
+      categories: ['Medical', 'Memorial', 'Nonprofit', 'Animals', 'Education', 'Sports', 'Other'],
+      keyword: ''
+    };
+    this.setField = this.setField.bind(this)
+  }
+
+  clickedCategory = () => {
+    this.setState({
+      showCategoryDropDown: !this.state.showCategoryDropDown
+    })
+  }
+  chosenCateogry = (item) => {
+    this.setState({
+      showCategoryDropDown: false,
+      categoryText: item
+    })
+  }
+  setField(field, e) {
+    this.setState({
+      [field]: e.target.value
+    })
+  }
+  clickedSearch = () =>{
+    let query = (this.state.categoryText != 'Cateogry' ? '&category=' + this.state.categoryText : '')+(this.state.keyword != '' ? '&keyword=' + this.state.keyword : "")
+    console.log(query);
+    this.props.clickedSearch(query)
+  }
+  render() {
+    const elements = this.state.categories.map((item, index) => (
+      <div key={index} className='search__select_category__items__item' onClick={() => { this.chosenCateogry(item) }}>
+        <p>{item}</p>
+      </div>
+    ))
+    return (
+
+      <div className='browse__search'>
+        <h1>Browse fundraisers</h1>
+        <p>People around the world are raising money for what they are passionate about.</p>
+        <div className='search'>
+          <div className='search__selected_category' onClick={this.clickedCategory}>
+            {/* onClick = {() => setshowCategoryDropDown(!showCategoryDropDown)}> */}
+            <p> {this.state.categoryText}</p>
           </div>
           <div className='search__input'>
             {/* <input type="text"/> */}
-            <input className='signin__box__credentials__input' type="text" placeholder="Search Fundrisers"/>
+            <input className='signin__box__credentials__input' type="text" placeholder="Search Fundrisers" value={this.state.keyword} onChange={this.setField.bind(null, 'keyword')} />
 
           </div>
           <div className='search__button'>
-            <button>Search</button>
+            <button onClick={ this.clickedSearch }>Search</button>
           </div>
-          
-          {showCategoryDropDown && <div className='search__select_category'>
+
+          {this.state.showCategoryDropDown && <div className='search__select_category'>
             <div className='search__select_category__items'>
-              <div className='search__select_category__items__item'>
-                <p>Medical</p>
-              </div>
-              <div className='search__select_category__items__item'>
-                <p>Memorial</p>
-              </div>
-              <div className='search__select_category__items__item'>
-                <p>Nonprofit</p>
-              </div>
-              <div className='search__select_category__items__item'>
-                <p>Animals</p>
-              </div>
-              <div className='search__select_category__items__item'>
-                <p>Education</p>
-              </div>
-              <div className='search__select_category__items__item'>
-                <p>Sports</p>
-              </div>
-              <div className='search__select_category__items__item'>
-                <p>Other</p>
-              </div>
+              {elements}
             </div>
           </div>}
+        </div>
       </div>
-  </div>
-  );
+    );
+  }
 }
 export default Search;

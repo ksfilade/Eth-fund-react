@@ -31,7 +31,7 @@ class startfundriser extends React.Component {
         this.setField = this.setField.bind(this)
         this.submitHandler = this.submitHandler.bind(this)
     }
-
+    
     setField(field, e) {
         this.setState({
             [field]: e.target.value
@@ -43,7 +43,6 @@ class startfundriser extends React.Component {
         this.setState({
             thumbnail: event.target.files[0]
         })
-
     }
     clickedCategoy = () => {
         this.setState({
@@ -57,7 +56,6 @@ class startfundriser extends React.Component {
         })
     }
     clickedUseCredentials = () => {
-       
         this.setState({
            useCredentials: !this.state.useCredentials,
            organaiser: !this.state.useCredentials ? this.props.currentUser : ''
@@ -102,6 +100,7 @@ class startfundriser extends React.Component {
                     token: res.data.token,
                     showSpiner: false
                 })
+                this.props.history.push('/fundrisers/'+res.data.fundriser._id)
             })
     }
 

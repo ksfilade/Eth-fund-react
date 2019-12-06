@@ -1,8 +1,6 @@
 import React from 'react';
 import './donate-modal.styles.scss'
-import Web3 from 'web3'
 import { payWithEth } from '../../helpers/web3'
-import axios from 'axios'
 import { connect } from 'react-redux'
 
 class DonateModal extends React.Component {
@@ -11,7 +9,10 @@ class DonateModal extends React.Component {
       this.state = {
          show: false,
          amount: '',
-         donateAnonymous: !this.props.isLogedin
+         donateAnonymous: !this.props.isLogedin,
+         successDonation: true,
+         donationText: 'Proccessing Donation',
+         showMessagess: false
       }
    }
    clickedClose = () => {
@@ -25,7 +26,21 @@ class DonateModal extends React.Component {
       })
    }
    clickedDonate = async () => {
-       payWithEth(this.props.walletAddress, this.state.amount, this.state.donateAnonymous ? 'Anonymous' : this.props.currentUser);
+      this.setState({
+         successDonation : false,
+         showMessagess: true,
+         donationText: 'Donation is Processing'
+      }) 
+       if( await payWithEth(this.props.walletAddress, this.state.amount, this.state.donateAnonymous ? 'Anonymous' : this.props.currentUser, this.props.donateTo) )
+         this.setState({
+            donationText: 'Successfull Donation',
+            successDonation : true
+         })
+      else{
+         this.setState({
+            showMessagess: false
+         })
+      }
       // if (await payWithEth(this.props.walletAddress, this.state.amount)) {
       //    console.log('object');
       //    let data = {
@@ -58,7 +73,7 @@ class DonateModal extends React.Component {
                   <div className='modal-content__title'>
                      <h1>Donate</h1>
                   </div>
-                  <div className='modal-content__donation'>
+                  { !this.state.showMessagess &&  <div className='modal-content__donation'>
                      <h3 className='modal-content__donation__donate'>Enter your donation for {this.props.title}</h3>
                      <div className='modal-content__donation__input'>
                         <input type="text" onChange={this.setField.bind(null, 'amount')} />
@@ -82,7 +97,12 @@ class DonateModal extends React.Component {
                            <h3>Donate</h3>
                         </div>
                      </div>
-                  </div>
+                  </div>}
+                 {this.state.showMessagess &&  <div className='modal-content__donation__state'>
+                     <div className = { this.state.successDonation ? 'modal-content__donation__state__success' : 'modal-content__donation__state__processing'  }>
+                     <h1>{this.state.donationText}</h1>
+                     </div>
+                  </div>}
                </div>
             </div>}
          </div>

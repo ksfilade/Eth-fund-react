@@ -111,6 +111,27 @@
         }
         &__buttons{
             display: flex;
+            &__delete{
+                margin-left:10px;
+                margin-right:10px;
+                display: flex;
+                flex: 40%;
+                
+                background-color: rgb(230, 0, 35);
+                border-radius: 4px;
+                height: 40px;
+                align-items: center;
+                justify-content: center;
+                border: solid white 1px;
+                cursor: pointer;
+                h3{
+                    font-size:15px;
+                    color: white;
+                }
+            }
+            &__delete:hover{
+                background-color: #d50c22 ;
+            }
             &__view{
                 margin-left:10px;
                 margin-right:10px;

@@ -2,20 +2,22 @@ import React from 'react';
 import './fundriser-donate.styles.scss'
 import ProgressBar from '../progress-bar/progress-bar.component'
 import axios from 'axios'
-import { ifStatement } from '@babel/types';
+import DonateModal from '../donate-modal/donate-modal.component'
 class FundriserDonate extends React.Component {
   constructor() {
     super();
     this.state = {
-      data: []
+      data: [],
+      showModal: false,
+      title: '',
+      walletAddress: '',
+      donateTo: ''
     }
   }
   async componentDidMount() {
-    
     this.setState({
-      data: (await axios.get("https://enigmatic-fortress-52205.herokuapp.com/fundrisers/donations/0x99F08ae81782DC764B94f7458A5ccE27b00B32Ec")).data
+      data: (await axios.get("https://enigmatic-fortress-52205.herokuapp.com/fundrisers/donations/"+this.props.data._id)).data
     })
-    console.log(this.state.data);
     this.state.data.forEach((element, i ,arr) => {
       arr[i].timeSpan = this.calculateTimeSpan( element.dateDonated )
     });
@@ -24,7 +26,20 @@ class FundriserDonate extends React.Component {
   calculateTimeSpan = (date) =>{
    return Math.floor( Math.abs( new Date() - new Date( date ) )/1000/60/60 ) 
   }
-
+  openModal = (title, walletAddress, id) => {
+    this.setState({
+      showModal: true,
+      title: title,
+      walletAddress: walletAddress,
+      donateTo: id
+    })
+  }
+  closeModal = () => {
+    this.setState({
+      showModal: false,
+      title: ''
+    })
+  }
   render() {
     const elements = []
     if(this.state.data.length >0){
@@ -55,7 +70,7 @@ class FundriserDonate extends React.Component {
         <div className='donate__progress'>
           <ProgressBar></ProgressBar>
         </div>
-        <button className='donate__button' onClick={this.handleClick}>Donate Now</button>
+        <button className='donate__button' onClick={this.openModal}>Donate Now</button>
 
 
         {/* <div className='donate__donators'>
@@ -76,6 +91,7 @@ class FundriserDonate extends React.Component {
         <div className = 'donate__all_donators'>
           {elements}
         </div>
+        <DonateModal closeModal={this.closeModal} showModal={this.state.showModal} title={this.props.data.title} walletAddress={this.props.data.walletAddress} donateTo = { this.props.data._id }></DonateModal>
       </div>
 
     )
