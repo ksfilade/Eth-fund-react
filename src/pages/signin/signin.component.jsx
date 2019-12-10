@@ -48,7 +48,7 @@ class Signin extends React.Component {
 
                         <div className='signin__box__button__signin' onClick={() => this.props.submitHandler('login', { email:this.state.email, password:this.state.password }) }>
                             {!this.props.showSpiner && <h3>Sign In to GoFundMe</h3>}
-                            {this.props.showSpiner && <Spiner></Spiner>}
+                            {this.props.showSpiner && <Spiner color='#4CAF50' size='30' background='white'></Spiner>}
                         </div>
                     </div>
                 </div>

@@ -158,7 +158,7 @@ class startfundriser extends React.Component {
 
                         <div className='startfundriser__box__button__startfundriser' onClick={this.submitHandler}>
                             {!this.state.showSpiner && <h3>Start Fundriser</h3>}
-                            {this.state.showSpiner && <Spiner></Spiner>}
+                            {this.state.showSpiner && <Spiner color='#4CAF50' size='30' background='white'></Spiner>}
                         </div>
                     </div>
                 </div>

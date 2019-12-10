@@ -83,7 +83,7 @@ class BrowseFundrisers extends React.Component {
                 <FundriserItem history = { this.props.history } item = { el } key = { el._id } openModal = { this.openModal } ></FundriserItem>
               ))
             }
-            {this.state.showSpiner && <Spiner></Spiner>}
+            {this.state.showSpiner && <Spiner color='#4CAF50' size='90' background='white'></Spiner>}
             <DonateModal closeModal={this.closeModal} showModal={this.state.showModal} title={this.state.title} walletAddress={this.state.walletAddress} donateTo = { this.state.donateTo }></DonateModal>
           </div>
 

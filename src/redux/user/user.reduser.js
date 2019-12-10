@@ -1,7 +1,8 @@
 const INITIAL_STATE = {
     currentUser : '',
     isLogedin: false,
-    token: ''
+    token: '',
+    admin: false
 }
 
 const userReducer = (state = INITIAL_STATE, action) => {
@@ -11,7 +12,8 @@ const userReducer = (state = INITIAL_STATE, action) => {
                 ...state,
                 currentUser: action.payload.name,
                 isLogedin: action.payload.isLogedin,
-                token: action.payload.token
+                token: action.payload.token,
+                admin: action.payload.admin
             }
             case 'LOGOUT_USER':
             return{

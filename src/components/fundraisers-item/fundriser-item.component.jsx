@@ -2,17 +2,57 @@ import React from 'react';
 import './fundriser-item.styles.scss'
 import ProgressBar from '../progress-bar/progress-bar.component'
 import axios from 'axios';
+import { connect } from 'react-redux'
+import Spinner from '../../components/spiner/spiner.component'
 class FundriserItem extends React.Component {
    constructor(props) {
       super(props);
+      this.state = {
+         deleted: false,
+         showFeaturedSpinner: false,
+         showDeleteSpinner: false,
+         showRemoveFeatured: false,
+         featured: false
+      }
    }
    clickedView = () => {
       this.props.history.push('/fundrisers/'+this.props.item._id)
    }
-   delete = async() => {
-      console.log('delete '+this.props.item._id);
-      let res = await axios.delete('https://enigmatic-fortress-52205.herokuapp.com/fundrisers/'+this.props.item._id)
+   delete = async () => {
+      this.setState({
+         showDeleteSpinner: true
+      })
+      let res = await axios.delete('https://enigmatic-fortress-52205.herokuapp.com/fundrisers/'+this.props.item._id,{ headers: { 'Content-Type': 'application/json', 'token': this.props.token } })
+      this.setState({
+         showDeleteSpinner: false
+      })
+      if(res.data.success)
+         this.setState({
+            deleted: true
+         })
+   }
+   makeFeatured = async ( condition ) =>{
+      this.setState({
+         showFeaturedSpinner: true
+      })
+      let data = {
+         featured: condition
+      }
+      let res = await axios.put('https://enigmatic-fortress-52205.herokuapp.com/fundrisers/'+this.props.item._id, data, { headers: { 'Content-Type': 'application/json', 'token': this.props.token } })
+      this.setState({
+         showFeaturedSpinner: false,
+         showRemoveFeatured: condition,
+         featured: condition
+      })
       console.log(res);
+   }
+   componentDidMount () {
+      console.log(this.props);
+
+      this.setState({
+         featured: this.props.item.featured
+      })
+
    }
 
    render() {
@@ -34,26 +74,38 @@ class FundriserItem extends React.Component {
             <div className='featured__item__raised'>
                <p className='featured__item__raised__text'><b>0$ raised </b> from {this.props.item.goalMoney}</p>
             </div>
-            {/* <div className='featured__item__buttons'>
+            {!this.props.admin && <div className='featured__item__buttons'>
                <div className='featured__item__buttons__view' onClick={this.clickedView}  >
                   <h3>View</h3>
                </div>
                <div className='featured__item__buttons__donate' onClick={ () =>{ this.props.openModal(this.props.item.title, this.props.item.walletAddress, this.props.item._id) }} >
                   <h3>Donate</h3>
                </div>
-            </div> */}
-            <div className='featured__item__buttons'>
-               <div className='featured__item__buttons__view' onClick={this.clickedView}  >
-                  <h3>Make Featured</h3>
+            </div>}
+            {this.props.admin && <div className='featured__item__buttons'>
+               {(!this.state.featured ) && <div className='featured__item__buttons__view' onClick = { () =>{ this.makeFeatured(!this.state.featured) } }  >
+                  {!this.state.showFeaturedSpinner && <h3>Make Featured</h3>}
+                  {this.state.showFeaturedSpinner && <Spinner color='#4CAF50' size='30' background='white'></Spinner>}
+               </div>}
+               {(this.state.featured ) && <div className = 'featured__item__buttons__delete' onClick={ () =>{ this.makeFeatured(!this.state.featured) } } >
+                  {!this.state.showFeaturedSpinner && <h3>Remove Featured</h3>}
+                  {this.state.showFeaturedSpinner && <Spinner color='white' size='30' background='red'></Spinner>}
+               </div>}
+               <div className = {this.state.deleted ? 'featured__item__buttons__delete featured__item__buttons__delete_deleted' : 'featured__item__buttons__delete'} onClick={ this.delete } >
+                  {!this.state.showDeleteSpinner &&  <h3>Delete</h3>}
+                  {this.state.showDeleteSpinner && <Spinner color='white' size='30' background='red'></Spinner>}
                </div>
-               <div className='featured__item__buttons__delete' onClick={ this.delete } >
-                  <h3>Delete</h3>
-               </div>
-            </div>
+            </div>}
          </div>
       )
    }
 
 }
-export default FundriserItem;
+const mapStateToProps = state => ({
+    currentUser: state.user.currentUser,
+    isLogedin: state.user.isLogedin,
+    token: state.user.token,
+    admin: state.user.admin
+});
+export default connect(mapStateToProps, null)(FundriserItem);
 

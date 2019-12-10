@@ -2,15 +2,10 @@
     font-size: 10px;
     margin: 50px auto;
     text-indent: -9999em;
-    width: 30px;
-    height: 30px;
+    
     border-radius: 50%;
-    background: #ffffff;
-    background: -moz-linear-gradient(left, #4CAF50 10%, rgba(255, 255, 255, 0) 42%);
-    background: -webkit-linear-gradient(left, #4CAF50 10%, rgba(255, 255, 255, 0) 42%);
-    background: -o-linear-gradient(left, #4CAF50 10%, rgba(255, 255, 255, 0) 42%);
-    background: -ms-linear-gradient(left, #4CAF50 10%, rgba(255, 255, 255, 0) 42%);
-    background: linear-gradient(to right, #4CAF50 10%, rgba(255, 255, 255, 0) 42%);
+    background: white;
+   
     position: relative;
     -webkit-animation: load3 1.4s infinite linear;
     animation: load3 1.4s infinite linear;
@@ -18,18 +13,34 @@
     -ms-transform: translateZ(0);
     transform: translateZ(0);
   }
+  .green{
+   
+    background: -moz-linear-gradient(left, #4CAF50 10%, rgba(255, 255, 255, 0) 42%);
+    background: -webkit-linear-gradient(left, #4CAF50 10%, rgba(255, 255, 255, 0) 42%);
+    background: -o-linear-gradient(left, #4CAF50 10%, rgba(255, 255, 255, 0) 42%);
+    background: -ms-linear-gradient(left, #4CAF50 10%, rgba(255, 255, 255, 0) 42%);
+    background: linear-gradient(to right, #4CAF50 10%, rgba(255, 255, 255, 0) 42%);
+  }
   .loader:before {
     width: 50%;
     height: 50%;
-    background: #ffffff;
+    background: white;
     border-radius: 100% 0 0 0;
     position: absolute;
     top: 0;
     left: 0;
     content: '';
   }
+  .white:after{
+    background: white
+  }
+  .green:after{
+    background: #4CAF50
+  }
+  .red:after{
+    background: red
+  }
   .loader:after {
-    background: white;
     width: 75%;
     height: 75%;
     border-radius: 50%;
