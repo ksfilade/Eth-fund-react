@@ -3,6 +3,7 @@ import './fundriser-donate.styles.scss'
 import ProgressBar from '../progress-bar/progress-bar.component'
 import axios from 'axios'
 import DonateModal from '../donate-modal/donate-modal.component'
+import { getBallance } from '../../helpers/web3'
 class FundriserDonate extends React.Component {
   constructor() {
     super();
@@ -11,7 +12,11 @@ class FundriserDonate extends React.Component {
       showModal: false,
       title: '',
       walletAddress: '',
-      donateTo: ''
+      donateTo: '',
+      showProgressBar: true,
+      widthStyle:{
+        width: '0%'
+      }
     }
   }
   async componentDidMount() {
@@ -21,7 +26,15 @@ class FundriserDonate extends React.Component {
     this.state.data.forEach((element, i ,arr) => {
       arr[i].timeSpan = this.calculateTimeSpan( element.dateDonated )
     });
-  
+    
+  let balance = await getBallance(this.props.data.walletAddress)
+  let percent = balance/this.props.data.goalMoney*100;
+  this.setState({
+    widthStyle: {
+      width:percent+'%'
+    },
+    showProgressBar: true
+  })
   }
   calculateTimeSpan = (date) =>{
    return Math.floor( Math.abs( new Date() - new Date( date ) )/1000/60/60 ) 
@@ -65,10 +78,11 @@ class FundriserDonate extends React.Component {
     return (
       <div className='donate'>
         <div className='donate__title'>
-          <h1>hello Donate</h1>
+          <h3>1 ETH raised</h3>
+          <h4>from {this.props.data.goalMoney}</h4>
         </div>
         <div className='donate__progress'>
-          <ProgressBar></ProgressBar>
+          <ProgressBar style={this.state.widthStyle}></ProgressBar>
         </div>
         <button className='donate__button' onClick={this.openModal}>Donate Now</button>
 

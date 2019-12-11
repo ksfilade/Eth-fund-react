@@ -1,6 +1,12 @@
 .fundriser{
     display: flex;
     padding: 70px; 
+    justify-content: center;
+    &__wrap{
+        display: flex;
+        width: 1000px;
+        position: relative;
+    }
     &__content{
         width: 65%;
         // height: 300px;
@@ -11,7 +17,7 @@
         height: 200px;
         // border:solid red 1px;
         position: fixed;
-        margin-left: 58%;
+        margin-left: 650px;
         padding-left: 1rem;
     }
 }

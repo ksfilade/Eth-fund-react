@@ -4,6 +4,7 @@ import ProgressBar from '../progress-bar/progress-bar.component'
 import axios from 'axios';
 import { connect } from 'react-redux'
 import Spinner from '../../components/spiner/spiner.component'
+import { getBallance } from '../../helpers/web3'
 class FundriserItem extends React.Component {
    constructor(props) {
       super(props);
@@ -12,7 +13,12 @@ class FundriserItem extends React.Component {
          showFeaturedSpinner: false,
          showDeleteSpinner: false,
          showRemoveFeatured: false,
-         featured: false
+         featured: false,
+         raisedMoney: 0,
+         widthStyle:{
+            width: '0%'
+         },
+         showProgressBar: false
       }
    }
    clickedView = () => {
@@ -42,17 +48,22 @@ class FundriserItem extends React.Component {
       this.setState({
          showFeaturedSpinner: false,
          showRemoveFeatured: condition,
-         featured: condition
+         featured: condition,
       })
-      console.log(res);
    }
-   componentDidMount () {
-      console.log(this.props);
-
+   async componentDidMount () {
+      console.log(this.props.item.goalMoney);
+      let balance =  await getBallance(this.props.item.walletAddress);
+      let percent = balance/this.props.item.goalMoney*100;
+      console.log(percent);
       this.setState({
-         featured: this.props.item.featured
+         featured: this.props.item.featured,
+         widthStyle:{
+            width: percent+'%'
+         },
+         showProgressBar: true,
+         raisedMoney: Math.round( balance * 100 )/100
       })
-
    }
 
    render() {
@@ -70,10 +81,11 @@ class FundriserItem extends React.Component {
             <div className='featured__item__content'>
                <p className='featured__item__content__text'>{this.props.item.description.slice(0,105) + '...'}</p>
             </div>
-            <ProgressBar></ProgressBar>
             <div className='featured__item__raised'>
-               <p className='featured__item__raised__text'><b>0$ raised </b> from {this.props.item.goalMoney}</p>
+               <p className='featured__item__raised__text'><b>{this.state.raisedMoney} ETH raised </b> from {this.props.item.goalMoney}</p>
             </div>
+            {this.state.showProgressBar && <ProgressBar style = {this.state.widthStyle}></ProgressBar>}
+            
             {!this.props.admin && <div className='featured__item__buttons'>
                <div className='featured__item__buttons__view' onClick={this.clickedView}  >
                   <h3>View</h3>
@@ -99,7 +111,6 @@ class FundriserItem extends React.Component {
          </div>
       )
    }
-
 }
 const mapStateToProps = state => ({
     currentUser: state.user.currentUser,

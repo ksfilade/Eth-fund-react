@@ -72,7 +72,9 @@ class BrowseFundrisers extends React.Component {
 
     return (
       <div id="browse">
+        <div className='browse__wrap'>
         <Search clickedSearch={ this.clickedSearch }></Search>
+        </div>
         <div className='browse__wrap'>
 
 

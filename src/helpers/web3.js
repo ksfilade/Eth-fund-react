@@ -27,8 +27,7 @@ export async function payWithEth(walletAddress, amount, user, donateTo) {
         donationTo: donateTo,
         amount: parseFloat(amount),
     }
-    console.log('object');
-    console.log(res);
+   
     await axios.post('https://enigmatic-fortress-52205.herokuapp.com/fundrisers/donation', data, { headers: { 'Content-Type': 'application/json' } })
     
     return res
@@ -36,4 +35,13 @@ export async function payWithEth(walletAddress, amount, user, donateTo) {
 }
 export async function checkAddress(walletAddress) {
     return web3.utils.isAddress(walletAddress)
+}
+export async function getBallance(walletAddress) {
+   
+    const BN = web3.utils.BN
+    if( await checkAddress(walletAddress))
+        return await web3.utils.fromWei( new BN( await web3.eth.getBalance( walletAddress ) ).toString() )
+
+return 0
+    
 }
