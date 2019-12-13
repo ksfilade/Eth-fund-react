@@ -1,9 +1,9 @@
 import React from 'react';
 import './fundriser-item.styles.scss'
-import ProgressBar from '../progress-bar/progress-bar.component'
+import ProgressBar from '../Porgress-Bar/progress-bar.component'
 import axios from 'axios';
 import { connect } from 'react-redux'
-import Spinner from '../../components/spiner/spiner.component'
+import Spinner from '../Spinner/spiner.component'
 import { getBallance } from '../../helpers/web3'
 class FundriserItem extends React.Component {
    constructor(props) {
@@ -79,7 +79,7 @@ class FundriserItem extends React.Component {
                <h3 className='featured__item__title__text'>{this.props.item.title} </h3>
             </div>
             <div className='featured__item__content'>
-               <p className='featured__item__content__text'>{this.props.item.description.slice(0,105) + '...'}</p>
+               {this.props.item.description !==undefined && <p className='featured__item__content__text'>{this.props.item.description.slice(0,105) + '...'}</p>}
             </div>
             <div className='featured__item__raised'>
                <p className='featured__item__raised__text'><b>{this.state.raisedMoney} ETH raised </b> from {this.props.item.goalMoney}</p>

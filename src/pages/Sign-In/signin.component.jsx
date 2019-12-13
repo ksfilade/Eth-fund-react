@@ -4,8 +4,8 @@ import axios from 'axios';
 import { connect } from 'react-redux'
 import { setCurrentUser } from '../../redux/user/user.actions'
 import withSign from '../withSign/withSign'
-import ErrorMessage from '../../components/error-message/error-message.component'
-import Spiner from '../../components/spiner/spiner.component'
+import ErrorMessage from '../../components/Error-Message/error-message.component'
+import Spiner from '../../components/Spinner/spiner.component'
 
 class Signin extends React.Component {
     constructor(props) {

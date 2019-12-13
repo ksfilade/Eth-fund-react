@@ -3,13 +3,13 @@ import './App.css';
 
 import { Route,Switch } from 'react-router-dom';
 import 'typeface-roboto';
-import HomePage from './pages/home-page/home-page'
-import BrowseFundrisers from './pages/browse-fundrisers/browse-fundrisers'
-import Fundriser from './pages/fundriser/fundriser'
-import Navbar from './components/navbar/navbar.component'
-import Signin from './pages/signin/signin.component'
-import Signup from './pages/signup/signup.component'
-import CreateFundriser from './pages/createFundriser/createFundriser.component'
+import HomePage from './pages/Home-Page/home-page'
+import BrowseFundrisers from './pages/Browse-Fundrisers/browse-fundrisers'
+import Fundriser from './pages/Single-Fundriser/fundriser'
+import Navbar from './components/Navbar/navbar.component'
+import Signin from './pages/Sign-In/signin.component'
+import Signup from './pages/Sign-Up/signup.component'
+import CreateFundriser from './pages/Create-Fundrisers/createFundriser.component'
 import socketIOClient from 'socket.io-client'
 import { connect } from 'react-redux'
 import { setCurrentUser} from './redux/user/user.actions'

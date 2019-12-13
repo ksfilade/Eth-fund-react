@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios'
 import { setCurrentUser } from '../../redux/user/user.actions'
-import Spiner from '../../components/spiner/spiner.component'
+import Spiner from '../../components/Spinner/spiner.component'
 import { validateEmail } from '../../helpers/checkFunctions'
 import { checkIfMatch } from '../../helpers/checkFunctions'
 import { checkIfEmpty } from '../../helpers/checkFunctions'

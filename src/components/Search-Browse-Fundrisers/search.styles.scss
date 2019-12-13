@@ -8,7 +8,6 @@
     // border:solid black 1px;
     display: flex;
     flex-wrap: wrap;
-
     &__selected_category{
         // border:solid black 1px;
         width: 150px;
@@ -27,7 +26,10 @@
         user-select: none; 
     }
     &__button{
-        width: 200px;
+        width: 130px;
+        margin-left: 0px;
+        display: flex;
+        justify-content: flex-end;
         button{
             background-color: #4CAF50; /* Green */
             border: none;
@@ -46,7 +48,7 @@
         }
     }
     &__input{
-        width: 620px;
+        width: 718px;
         input{
             margin-top: 0px ;
             height: 45px;
@@ -54,7 +56,7 @@
             border: solid 1px #ddd;
             border-radius: 4px;
             padding-left: 12px;
-            width: 600px;
+            width: 98%;
         }
         input:focus{
             outline: none !important;

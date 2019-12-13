@@ -3,8 +3,8 @@ import './createFundriser.styles.scss';
 import axios from 'axios'
 import { checkAddress } from '../../helpers/web3'
 import { checkIfEmpty } from '../../helpers/checkFunctions'
-import Spiner from '../../components/spiner/spiner.component'
-import ErrorMessage from '../../components/error-message/error-message.component'
+import Spiner from '../../components/Spinner/spiner.component'
+import ErrorMessage from '../../components/Error-Message/error-message.component'
 import { connect } from 'react-redux'
 import { element } from 'prop-types';
 

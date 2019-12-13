@@ -1,6 +1,6 @@
 import React from 'react';
-import FundriserContent from '../../components/fundriser-content/fundriser-content.component'
-import FundriserDonate from '../../components/fundriser-donate/fundriser-donate.component'
+import FundriserContent from '../../components/Single-Fundriser-Content/fundriser-content.component'
+import FundriserDonate from '../../components/Single-Fundriser-Doante/fundriser-donate.component'
 import './fundriser.scss'
 import axios from 'axios'
 

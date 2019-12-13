@@ -1,8 +1,8 @@
 import React from 'react';
 import './fundriser-donate.styles.scss'
-import ProgressBar from '../progress-bar/progress-bar.component'
+import ProgressBar from '../Porgress-Bar/progress-bar.component'
 import axios from 'axios'
-import DonateModal from '../donate-modal/donate-modal.component'
+import DonateModal from '../Donate-Modal/donate-modal.component'
 import { getBallance } from '../../helpers/web3'
 class FundriserDonate extends React.Component {
   constructor() {

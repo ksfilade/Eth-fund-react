@@ -1,6 +1,6 @@
 import React from 'react';
-import Banner from '../../components/home-page-banner/home-page-banner.component'
-import FeaturedFundrisers from '../../components/home-page-featured/home-page-feautred.component'
+import Banner from '../../components/Home-Page-Banner/home-page-banner.component'
+import FeaturedFundrisers from '../../components/Home-Page-Featured/home-page-feautred.component'
 class HomePage extends React.Component {
     constructor() {
       super()
@@ -18,7 +18,7 @@ class HomePage extends React.Component {
       <div className="App">      
         <div>
           <Banner></Banner>
-          {/* <FeaturedFundrisers></FeaturedFundrisers> */}
+          <FeaturedFundrisers></FeaturedFundrisers>
         </div>
         
       </div>
