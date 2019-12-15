@@ -56,9 +56,10 @@ class DonateModal extends React.Component {
 
    }
    componentDidMount(){
-      console.log(this.props.isLogedin);
+      console.log(this.props);
    }
    clickedDonateAnonymous = () => {
+      console.log('object');
       if(this.props.isLogedin)
       this.setState({
          donateAnonymous: !this.state.donateAnonymous
@@ -83,7 +84,7 @@ class DonateModal extends React.Component {
                      </div>
                      <div className={!this.props.isLogedin ? 'modal-content__donation__checkbox__not_loged_user modal-content__donation__checkbox' : 'modal-content__donation__checkbox'}>
                         <div className='modal-content__donation__checkbox__value' onClick={this.clickedDonateAnonymous}>
-                           {this.state.donateAnonymous && <img src="https://www.goglobie.com/wp-content/uploads/2018/03/check-image.png" alt="" />}
+                           {this.state.donateAnonymous && <img src={require('../../assets/img/check.svg')} alt="" />}
                         </div>
                         <div className='modal-content__donation__checkbox__text'>
                            <h3>Donate Anonymously</h3>

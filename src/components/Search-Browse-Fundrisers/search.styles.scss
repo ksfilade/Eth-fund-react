@@ -9,7 +9,11 @@
     display: flex;
     flex-wrap: wrap;
     &__selected_category{
-        // border:solid black 1px;
+        &__remove{
+            margin-left: 15px;
+            font-size: 20px;
+            margin-top: 0px;
+        }
         width: 150px;
         justify-content: center;
         display: flex;

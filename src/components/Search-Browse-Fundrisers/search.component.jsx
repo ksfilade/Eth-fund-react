@@ -6,7 +6,7 @@ class Search extends React.Component {
     super(props);
     this.state = {
       showCategoryDropDown: false,
-      categoryText: 'Cateogry',
+      categoryText: 'Category',
       categories: ['Medical', 'Memorial', 'Nonprofit', 'Animals', 'Education', 'Sports', 'Other'],
       keyword: ''
     };
@@ -22,7 +22,7 @@ class Search extends React.Component {
     this.setState({
       showCategoryDropDown: false,
       categoryText: item
-    })
+    },() => {this.clickedSearch()})
   }
   setField(field, e) {
     this.setState({
@@ -30,7 +30,7 @@ class Search extends React.Component {
     })
   }
   clickedSearch = () =>{
-    let query = (this.state.categoryText != 'Cateogry' ? '&category=' + this.state.categoryText : '')+(this.state.keyword != '' ? '&keyword=' + this.state.keyword : "")
+    let query = (this.state.categoryText != 'Category' ? '&category=' + this.state.categoryText : '')+(this.state.keyword != '' ? '&keyword=' + this.state.keyword : "")
     console.log(query);
     this.props.clickedSearch(query)
   }
@@ -46,9 +46,12 @@ class Search extends React.Component {
         <h1>Browse fundraisers</h1>
         <p>People around the world are raising money for what they are passionate about.</p>
         <div className='search'>
-          <div className='search__selected_category' onClick={this.clickedCategory}>
+          <div className='search__selected_category' >
             {/* onClick = {() => setshowCategoryDropDown(!showCategoryDropDown)}> */}
-            <p> {this.state.categoryText}</p>
+            <p onClick={this.clickedCategory}> {this.state.categoryText}</p>
+            {this.state.categoryText !='Category' && <div className='search__selected_category__remove' onClick={() => { this.chosenCateogry('Category') }}>
+              <p>x</p>
+            </div>}
           </div>
           <div className='search__input'>
             {/* <input type="text"/> */}
