@@ -71,6 +71,14 @@ class Navbar extends React.Component {
               <h8>Hello {this.props.currentUser}</h8>
             </div>
           }
+
+          {this.props.isLogedin &&
+            <div className="navbar__your_fundrisers " >
+              <Link to={'/user-fundrisers'} className='navbar__link'>
+                <h1>Your Fundrisers</h1>
+              </Link>
+
+            </div>}
           {this.props.isLogedin &&
             <div className="navbar__login " onClick={this.logOut.bind(this, 2)}>
               <Link to={'/login'} className='navbar__link'>

@@ -10,6 +10,8 @@ import Navbar from './components/Navbar/navbar.component'
 import Signin from './pages/Sign-In/signin.component'
 import Signup from './pages/Sign-Up/signup.component'
 import CreateFundriser from './pages/Create-Fundrisers/createFundriser.component'
+import UserFundrisers from './pages/User-Fundrisers/user-fundrisers'
+import editFundriser from './pages/Edit-Fundrisers/editFundriser.component'
 import socketIOClient from 'socket.io-client'
 import { connect } from 'react-redux'
 import { setCurrentUser} from './redux/user/user.actions'
@@ -43,6 +45,9 @@ class App extends React.Component {
         <Route exact path='/browse' component = { BrowseFundrisers } />
       </Switch>
       <Switch>
+        <Route exact path='/user-fundrisers' component = { UserFundrisers } />
+      </Switch>
+      <Switch>
         <Route exact path='/fundrisers/:id' component = { Fundriser } />
       </Switch>
       <Switch>
@@ -53,6 +58,9 @@ class App extends React.Component {
       </Switch>
       <Switch>
         <Route exact path='/createfundriser' component = { CreateFundriser } />
+      </Switch>
+      <Switch>
+        <Route exact path='/edit-fundrisers/:id' component = { editFundriser } />
       </Switch>
     </div>
   );

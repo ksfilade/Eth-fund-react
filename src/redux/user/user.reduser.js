@@ -11,6 +11,7 @@ const userReducer = (state = INITIAL_STATE, action) => {
             return{
                 ...state,
                 currentUser: action.payload.name,
+                userID: action.payload.userID,
                 isLogedin: action.payload.isLogedin,
                 token: action.payload.token,
                 admin: action.payload.admin
@@ -20,7 +21,9 @@ const userReducer = (state = INITIAL_STATE, action) => {
                 ...state,
                 currentUser: '',
                 isLogedin: false,
-                token: ''
+                token: '',
+                admin: false,
+                userID: '',
             }
 
         default:

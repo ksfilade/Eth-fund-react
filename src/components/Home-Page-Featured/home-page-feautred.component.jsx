@@ -20,6 +20,7 @@ constructor(){
    
 } 
 async componentDidMount(){
+  console.log(this.props);
   await this.getFundrisers()
   this.setState({
     showFeatured: true

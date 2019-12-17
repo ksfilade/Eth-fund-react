@@ -24,6 +24,9 @@ class FundriserItem extends React.Component {
    clickedView = () => {
       this.props.history.push('/fundrisers/'+this.props.item._id)
    }
+   clickedEdit = () => {
+      this.props.history.push('/edit-fundrisers/'+this.props.item._id)
+   }
    delete = async () => {
       this.setState({
          showDeleteSpinner: true
@@ -52,10 +55,9 @@ class FundriserItem extends React.Component {
       })
    }
    async componentDidMount () {
-      console.log(this.props.item.goalMoney);
+      console.log(this.props);
       let balance =  await getBallance(this.props.item.walletAddress);
       let percent = balance/this.props.item.goalMoney*100;
-      console.log(percent);
       this.setState({
          featured: this.props.item.featured,
          widthStyle:{
@@ -87,12 +89,15 @@ class FundriserItem extends React.Component {
             {this.state.showProgressBar && <ProgressBar style = {this.state.widthStyle}></ProgressBar>}
             
             {!this.props.admin && <div className='featured__item__buttons'>
-               <div className='featured__item__buttons__view' onClick={this.clickedView}  >
+              {this.props.history.location.pathname != '/user-fundrisers' && <div className='featured__item__buttons__view' onClick={this.clickedView}  >
                   <h3>View</h3>
-               </div>
-               <div className='featured__item__buttons__donate' onClick={ () =>{ this.props.openModal(this.props.item.title, this.props.item.walletAddress, this.props.item._id) }} >
+               </div>}
+               {this.props.history.location.pathname == '/user-fundrisers' && <div className='featured__item__buttons__view' onClick={this.clickedEdit}  >
+                  <h3>Edit</h3>
+               </div>}
+               {this.props.history.location.pathname != '/user-fundrisers' && <div className='featured__item__buttons__donate' onClick={ () =>{ this.props.openModal(this.props.item.title, this.props.item.walletAddress, this.props.item._id) }} >
                   <h3>Donate</h3>
-               </div>
+               </div>}
             </div>}
             {this.props.admin && <div className='featured__item__buttons'>
                {(!this.state.featured ) && <div className='featured__item__buttons__view' onClick = { () =>{ this.makeFeatured(!this.state.featured) } }  >

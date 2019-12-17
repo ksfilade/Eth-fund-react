@@ -5,6 +5,16 @@
     display: flex;
     background-color: white;
     justify-content: center;
+    &__your_fundrisers{
+        width: 15%;
+        h1{
+            font-size: 16px;
+        }
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
     &__link{
         color: #00b964;
         text-decoration: none;
@@ -83,7 +93,7 @@
         }
     }
     &__loged_user{
-        width: 20%;
+        width: 10%;
 
         text-align: center;
         display: flex;

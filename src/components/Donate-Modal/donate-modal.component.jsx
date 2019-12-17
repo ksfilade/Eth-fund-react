@@ -17,7 +17,8 @@ class DonateModal extends React.Component {
    }
    clickedClose = () => {
       this.setState({
-         show: false
+         show: false,
+         showMessagess: false
       })
    }
    setField = (field, e) => {

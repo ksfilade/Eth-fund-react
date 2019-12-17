@@ -1,0 +1,15 @@
+.browse{
+    display: grid;
+    grid-template-columns: auto auto auto;
+    padding: 1% 0% 0px 0%;
+    margin:auto;
+    gap: 15px;
+}
+.browse__wrap{
+    display: flex;
+    justify-content: center;
+}
+.search__wrap{
+    display: flex;
+    justify-content: center;
+}
