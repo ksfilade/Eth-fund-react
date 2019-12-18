@@ -26,7 +26,8 @@ class editfundriser extends React.Component {
             categoryText: 'Category',
             organaiser: '',
             categories: ['Medical', 'Memorial', 'Nonprofit', 'Animals', 'Education', 'Sports', 'Other'],
-            useCredentials: false
+            useCredentials: false,
+            disableUpdateButton: false
         };
         this.setField = this.setField.bind(this)
         this.submitHandler = this.submitHandler.bind(this)
@@ -76,44 +77,68 @@ class editfundriser extends React.Component {
         })
      }
     submitHandler = async () => {
-
-        if (!checkIfEmpty(this.state.walletAddress) || !checkIfEmpty(this.state.goalMoney) || !checkIfEmpty(this.state.title) || !checkIfEmpty(this.state.organaiser)) {
-            return this.setState({
-                showErrorMessage: true,
-                errorMessage: 'Title,Organaiser Wallet Address and Goal Money are mandatory fields'
-            })
+        console.log(this.state.goalMoney);
+        console.log(await this.makeChecks());
+        if(! await this.makeChecks())
+            return
+        console.log('=============')
+        console.log(this.makeChecks());
+        const data = {
+            category: this.state.categoryText,
+            city: this.state.city,
+            country: this.state.country,
+            title: this.state.title,
+            description: this.state.description,
+            goalMoney: this.state.goalMoney,
+            walletAddress: this.state.walletAddress,
+            organaiser: this.state.organaiser
         }
-        if (!await checkAddress(this.state.walletAddress))
-            return this.setState({
-                showErrorMessage: true,
-                errorMessage: 'Not Valid Wallet Address'
-            })
-        if (this.state.categoryText === 'Category')
-            return this.setState({
-                showErrorMessage: true,
-                errorMessage: 'Select Category'
-            })
-        const data = new FormData()
-        data.append('upload', this.state.thumbnail)
-        data.append('category', this.state.categoryText)
-        data.append('city', this.state.city)
-        data.append('country', this.state.country)
-        data.append('title', this.state.title)
-        data.append('description', this.state.description)
-        data.append('goalMoney', this.state.goalMoney)
-        data.append('walletAddress', this.state.walletAddress)
-        data.append('organaiser', this.state.organaiser)
+        // data.append('upload', this.state.thumbnail)
+        // data.append('category', this.state.categoryText)
+        // data.append('city', this.state.city)
+        // data.append('country', this.state.country)
+        // data.append('title', this.state.title)
+        // data.append('description', this.state.description)
+        // data.append('goalMoney', this.state.goalMoney)
+        // data.append('walletAddress', this.state.walletAddress)
+        // data.append('organaiser', this.state.organaiser)
         this.setState({
             showSpiner: true
         })
-        console.log(this.props);
-        axios.put('https://enigmatic-fortress-52205.herokuapp.com/fundrisers/'+this.props.match.params.id, data, { headers: { 'Content-Type': 'application/json', 'token': this.props.token } })
+        axios.put('https://enigmatic-fortress-52205.herokuapp.com/fundrisers/user/'+this.props.id+'/edit/'+this.props.match.params.id, data, { headers: { 'Content-Type': 'application/json', 'token': this.props.token } })
             .then(res => {
                 console.log(res);
+                this.setState({
+                    showSpiner: false,
+                    disableUpdateButton: true
+                })
                 // this.props.history.push('/fundrisers/'+res.data.fundriser._id)
             })
     }
-   
+   makeChecks = async () => {
+    if (!checkIfEmpty(this.state.walletAddress) || !checkIfEmpty(this.state.goalMoney) || !checkIfEmpty(this.state.title) || !checkIfEmpty(this.state.organaiser)) {
+         this.setState({
+            showErrorMessage: true,
+            errorMessage: 'Title,Organaiser Wallet Address and Goal Money are mandatory fields'
+        })
+        return false
+    }
+    if (!await checkAddress(this.state.walletAddress)){
+         this.setState({
+            showErrorMessage: true,
+            errorMessage: 'Not Valid Wallet Address'
+        })
+        return false
+    }
+    if (this.state.categoryText === 'Category'){
+         this.setState({
+            showErrorMessage: true,
+            errorMessage: 'Select Category'
+        })
+        return false
+   }
+   return true
+}
 
     render() {
         const elements = this.state.categories.map((item, index) => (
@@ -167,10 +192,14 @@ class editfundriser extends React.Component {
 
                     <div className='startfundriser__box__button'>
 
-                        <div className='startfundriser__box__button__startfundriser' onClick={this.submitHandler}>
+                        {!this.state.disableUpdateButton && <div className='startfundriser__box__button__startfundriser' onClick={this.submitHandler}>
                             {!this.state.showSpiner && <h3>Start Fundriser</h3>}
                             {this.state.showSpiner && <Spiner color='#4CAF50' size='30' background='white'></Spiner>}
-                        </div>
+                        </div>}
+                        {this.state.disableUpdateButton && <div className='startfundriser__box__button__startfundriser not-active' >
+                            {!this.state.showSpiner && <h3>Succesfull Upadte</h3>}
+                            {this.state.showSpiner && <Spiner color='#4CAF50' size='30' background='white'></Spiner>}
+                        </div>}
                     </div>
                 </div>
             </div>
@@ -180,6 +209,7 @@ class editfundriser extends React.Component {
 const mapStateToProps = state => ({
     currentUser: state.user.currentUser,
     isLogedin: state.user.isLogedin,
-    token: state.user.token
+    token: state.user.token,
+    id: state.user.userID
 });
 export default connect(mapStateToProps, null)(editfundriser)
