@@ -20,11 +20,7 @@ const withSign = WrappedComponent => {
       };
     }
 
-    componentDidMount() {
-      console.log('hello wraped component');
-    }
     submitHandler = async (signType, data) => {
-      // console.log(validateEmail(data.email));
       if (!validateEmail(data.email))
         return this.setState({
           showErrorMessage: true,
@@ -48,7 +44,6 @@ const withSign = WrappedComponent => {
 
       let res = await axios.post('https://enigmatic-fortress-52205.herokuapp.com/users/' + signType, data)
       if (res.data.success == undefined) {
-        console.log(res.data);
         this.props.setCurrentUser({ name: res.data.user.firstName, isLogedin: true, token: res.data.token, admin: res.data.user.admin, userID: res.data.user._id })
         
         this.props.history.push('/')

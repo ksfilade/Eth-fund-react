@@ -26,13 +26,7 @@ class Navbar extends React.Component {
       this.props.logoutUser()
 
   }
-  // componentDidUpdate(){
-  //   console.log('updated nav');
-  //   console.log(this.props.currentUser);
-  //   this.setState({
-  //     user: this.props.currentUser
-  //   })
-  // }
+
   render() {
     return (
       <div className='navbar__wrap'>

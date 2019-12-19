@@ -36,7 +36,6 @@ class startfundriser extends React.Component {
         this.setState({
             [field]: e.target.value
         })
-        // console.log(this.state);
     }
     onChangeHandler = event => {
 
@@ -62,7 +61,6 @@ class startfundriser extends React.Component {
         })
      }
     submitHandler = async () => {
-        console.log(this.props.token);
 
         if (!checkIfEmpty(this.state.walletAddress) || !checkIfEmpty(this.state.goalMoney) || !checkIfEmpty(this.state.title) || !checkIfEmpty(this.state.organaiser)) {
             return this.setState({
@@ -95,7 +93,6 @@ class startfundriser extends React.Component {
         })
         axios.post('https://enigmatic-fortress-52205.herokuapp.com/fundrisers', data, { headers: { 'Content-Type': 'application/json', 'token': this.props.token } })
             .then(res => {
-                console.log(res.data);
                 this.setState({
                     token: res.data.token,
                     showSpiner: false

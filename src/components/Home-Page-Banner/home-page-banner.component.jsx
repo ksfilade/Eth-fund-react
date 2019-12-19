@@ -4,7 +4,6 @@ class HomeBanner extends React.Component {
 constructor(){
   super();
   this.handleClick =( e ) => {
-    console.log('i am clicked')
   }
 }
    

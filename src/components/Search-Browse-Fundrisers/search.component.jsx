@@ -31,7 +31,6 @@ class Search extends React.Component {
   }
   clickedSearch = () =>{
     let query = (this.state.categoryText != 'Category' ? '&category=' + this.state.categoryText : '')+(this.state.keyword != '' ? '&keyword=' + this.state.keyword : "")
-    console.log(query);
     this.props.clickedSearch(query)
   }
   render() {

@@ -7,7 +7,6 @@ var cABI = [{"constant":true,"inputs":[],"name":"message","outputs":[{"name":"",
 var ADDRESS = '0xDAD225222C3D87d608e86BA73F92b919F57e0ED9';
 
 export async function payWithEth(walletAddress, amount, user, donateTo) {
-    console.log(user);
     let provider = window['ethereum'] || window.web3.currentProvider;
     await provider.enable()
 

@@ -17,9 +17,13 @@ class DonateModal extends React.Component {
    }
    clickedClose = () => {
       this.setState({
+         showMessagess: false,
          show: false,
-         showMessagess: false
+         showMessagess: false,
+         successDonation: true,
       })
+      this.props.closeModal()
+
    }
    setField = (field, e) => {
       this.setState({
@@ -42,25 +46,11 @@ class DonateModal extends React.Component {
             showMessagess: false
          })
       }
-      // if (await payWithEth(this.props.walletAddress, this.state.amount)) {
-      //    console.log('object');
-      //    let data = {
-      //       donationFrom: "anonymus",
-      //       donationTo: this.props.walletAddress,
-      //       amount: parseInt(this.state.amount)
-      //    }
-      //    axios.post('https://enigmatic-fortress-52205.herokuapp.com/fundrisers/donation', data, { headers: { 'Content-Type': 'application/json' } })
-      //       .then(res => {
-      //          console.log(res.data);
-      //       })
-      // }
-
+    
    }
    componentDidMount(){
-      console.log(this.props);
    }
    clickedDonateAnonymous = () => {
-      console.log('object');
       if(this.props.isLogedin)
       this.setState({
          donateAnonymous: !this.state.donateAnonymous
@@ -71,7 +61,7 @@ class DonateModal extends React.Component {
          <div>{this.props.showModal &&
             <div id="myModal" className="modal">
                <div className="modal-content">
-                  <span className="close" onClick={this.props.closeModal} >&times;</span>
+                  <span className="close" onClick={this.clickedClose} >&times;</span>
                   <div className='modal-content__title'>
                      <h1>Donate</h1>
                   </div>
@@ -92,7 +82,7 @@ class DonateModal extends React.Component {
                         </div>
                      </div>
                      <div className='modal-content__donation__buttons'>
-                        <div className='modal-content__donation__buttons__view' onClick={this.props.closeModal}  >
+                        <div className='modal-content__donation__buttons__view' onClick={this.clickedClose}  >
                            <h3>Close</h3>
                         </div>
                         <div className='modal-content__donation__buttons__donate' onClick={this.clickedDonate} >

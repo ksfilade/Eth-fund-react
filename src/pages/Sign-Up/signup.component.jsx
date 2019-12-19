@@ -35,9 +35,7 @@ class Signup extends React.Component {
     //             this.props.setCurrentUser({ name: res.data.user.email, isLogedin: true, token: res.data.token })
     //         })
     // }
-    componentDidMount(){
-        console.log(this.props);
-    }
+    
 
     render() {
         return (

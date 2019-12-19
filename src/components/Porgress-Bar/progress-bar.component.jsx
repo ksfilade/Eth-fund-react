@@ -4,7 +4,6 @@ class ProgressBar extends React.Component {
 constructor(props){
   super(props);
   this.handleClick =( e ) => {
-    console.log('i am clicked')
   }
   
 }

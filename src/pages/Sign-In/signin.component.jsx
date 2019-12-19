@@ -27,9 +27,6 @@ class Signin extends React.Component {
             [field]: e.target.value
         })
     }
-    componentDidMount(){
-        console.log(this.props);
-    }
     
     render() {
         return (

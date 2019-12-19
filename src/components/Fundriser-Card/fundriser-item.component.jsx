@@ -55,7 +55,6 @@ class FundriserItem extends React.Component {
       })
    }
    async componentDidMount () {
-      console.log(this.props);
       let balance =  await getBallance(this.props.item.walletAddress);
       let percent = balance/this.props.item.goalMoney*100;
       this.setState({

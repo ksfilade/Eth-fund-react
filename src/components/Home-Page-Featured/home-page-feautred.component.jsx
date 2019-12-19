@@ -15,17 +15,14 @@ constructor(){
       showFeatured: false,
   }
   this.handleClick =( e ) => {
-    console.log('i am clicked')
   }
    
 } 
 async componentDidMount(){
-  console.log(this.props);
   await this.getFundrisers()
   this.setState({
     showFeatured: true
   })
-  console.log(this.results);
 }
 openModal = (title, walletAddress, id) => {
   this.setState({
@@ -43,7 +40,6 @@ closeModal = () => {
 }
 async getFundrisers() {
   const results = await axios.get('https://enigmatic-fortress-52205.herokuapp.com/fundrisers?featured=true')
-  console.log(results);
   this.setState({
     results: [...this.state.results, ...results.data.results],
     showSpiner: false,

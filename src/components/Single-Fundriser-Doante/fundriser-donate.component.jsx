@@ -20,8 +20,6 @@ class FundriserDonate extends React.Component {
     }
   }
   async componentDidMount() {
-   console.log('hereas');
-    console.log(this.props.data._id);
     this.setState({
       data: (await axios.get("https://enigmatic-fortress-52205.herokuapp.com/fundrisers/donations/"+this.props.data._id)).data
     })

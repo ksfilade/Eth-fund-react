@@ -32,10 +32,9 @@ class editfundriser extends React.Component {
         this.setField = this.setField.bind(this)
         this.submitHandler = this.submitHandler.bind(this)
     }
-    async componentDidMount(){
-        let res = await axios.get('https://enigmatic-fortress-52205.herokuapp.com/fundrisers/'+this.props.match.params.id)
+    async componentDidMount() {
+        let res = await axios.get('https://enigmatic-fortress-52205.herokuapp.com/fundrisers/' + this.props.match.params.id)
         const item = res.data[0]
-        console.log(item);
         this.setState({
             city: item.city,
             country: item.country,
@@ -52,7 +51,6 @@ class editfundriser extends React.Component {
         this.setState({
             [field]: e.target.value
         })
-        // console.log(this.state);
     }
     onChangeHandler = event => {
         this.setState({
@@ -72,17 +70,14 @@ class editfundriser extends React.Component {
     }
     clickedUseCredentials = () => {
         this.setState({
-           useCredentials: !this.state.useCredentials,
-           organaiser: !this.state.useCredentials ? this.props.currentUser : ''
+            useCredentials: !this.state.useCredentials,
+            organaiser: !this.state.useCredentials ? this.props.currentUser : ''
         })
-     }
+    }
     submitHandler = async () => {
-        console.log(this.state.goalMoney);
-        console.log(await this.makeChecks());
-        if(! await this.makeChecks())
+        if (! await this.makeChecks())
             return
-        console.log('=============')
-        console.log(this.makeChecks());
+
         const data = {
             category: this.state.categoryText,
             city: this.state.city,
@@ -93,21 +88,12 @@ class editfundriser extends React.Component {
             walletAddress: this.state.walletAddress,
             organaiser: this.state.organaiser
         }
-        // data.append('upload', this.state.thumbnail)
-        // data.append('category', this.state.categoryText)
-        // data.append('city', this.state.city)
-        // data.append('country', this.state.country)
-        // data.append('title', this.state.title)
-        // data.append('description', this.state.description)
-        // data.append('goalMoney', this.state.goalMoney)
-        // data.append('walletAddress', this.state.walletAddress)
-        // data.append('organaiser', this.state.organaiser)
+
         this.setState({
             showSpiner: true
         })
-        axios.put('https://enigmatic-fortress-52205.herokuapp.com/fundrisers/user/'+this.props.id+'/edit/'+this.props.match.params.id, data, { headers: { 'Content-Type': 'application/json', 'token': this.props.token } })
+        axios.put('https://enigmatic-fortress-52205.herokuapp.com/fundrisers/user/' + this.props.id + '/edit/' + this.props.match.params.id, data, { headers: { 'Content-Type': 'application/json', 'token': this.props.token } })
             .then(res => {
-                console.log(res);
                 this.setState({
                     showSpiner: false,
                     disableUpdateButton: true
@@ -115,30 +101,30 @@ class editfundriser extends React.Component {
                 // this.props.history.push('/fundrisers/'+res.data.fundriser._id)
             })
     }
-   makeChecks = async () => {
-    if (!checkIfEmpty(this.state.walletAddress) || !checkIfEmpty(this.state.goalMoney) || !checkIfEmpty(this.state.title) || !checkIfEmpty(this.state.organaiser)) {
-         this.setState({
-            showErrorMessage: true,
-            errorMessage: 'Title,Organaiser Wallet Address and Goal Money are mandatory fields'
-        })
-        return false
+    makeChecks = async () => {
+        if (!checkIfEmpty(this.state.walletAddress) || !checkIfEmpty(this.state.goalMoney) || !checkIfEmpty(this.state.title) || !checkIfEmpty(this.state.organaiser)) {
+            this.setState({
+                showErrorMessage: true,
+                errorMessage: 'Title,Organaiser Wallet Address and Goal Money are mandatory fields'
+            })
+            return false
+        }
+        if (!await checkAddress(this.state.walletAddress)) {
+            this.setState({
+                showErrorMessage: true,
+                errorMessage: 'Not Valid Wallet Address'
+            })
+            return false
+        }
+        if (this.state.categoryText === 'Category') {
+            this.setState({
+                showErrorMessage: true,
+                errorMessage: 'Select Category'
+            })
+            return false
+        }
+        return true
     }
-    if (!await checkAddress(this.state.walletAddress)){
-         this.setState({
-            showErrorMessage: true,
-            errorMessage: 'Not Valid Wallet Address'
-        })
-        return false
-    }
-    if (this.state.categoryText === 'Category'){
-         this.setState({
-            showErrorMessage: true,
-            errorMessage: 'Select Category'
-        })
-        return false
-   }
-   return true
-}
 
     render() {
         const elements = this.state.categories.map((item, index) => (

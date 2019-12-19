@@ -9,13 +9,7 @@ class FundriserContent extends React.Component {
       data: {}
     };
   }
-  async componentDidMount() {
-    // this.setState({
-    //   data: (await axios.get("https://enigmatic-fortress-52205.herokuapp.com/fundrisers/"+this.props.id)).data[0]
-    // }) 
-    console.log('mounted content');
-    console.log(this.props);
-  }
+  
   render() {
     return (
       <div>
