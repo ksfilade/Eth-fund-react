@@ -3,7 +3,7 @@ import './fundriser-donate.styles.scss'
 import ProgressBar from '../Porgress-Bar/progress-bar.component'
 import axios from 'axios'
 import DonateModal from '../Donate-Modal/donate-modal.component'
-import { getBallance } from '../../helpers/web3'
+// import { getBallance } from '../../helpers/web3'
 class FundriserDonate extends React.Component {
   constructor() {
     super();
@@ -16,18 +16,21 @@ class FundriserDonate extends React.Component {
       showProgressBar: true,
       widthStyle:{
         width: '0%'
-      }
+      },
+      sum: 0
     }
   }
   async componentDidMount() {
+    let data = (await axios.get("https://enigmatic-fortress-52205.herokuapp.com/fundrisers/donations/"+this.props.data._id));
     this.setState({
-      data: (await axios.get("https://enigmatic-fortress-52205.herokuapp.com/fundrisers/donations/"+this.props.data._id)).data
+      data: data.data.result,
+      sum: data.data.sum
     })
     this.state.data.forEach((element, i ,arr) => {
       arr[i].timeSpan = this.calculateTimeSpan( element.dateDonated )
     });
     
-  let balance = await getBallance(this.props.data.walletAddress)
+  let balance = this.state.sum
   let percent = balance/this.props.data.goalMoney*100;
   this.setState({
     widthStyle: {
@@ -74,11 +77,12 @@ class FundriserDonate extends React.Component {
         </div>
       )
 
-    })}
+    })
+  }
     return (
       <div className='donate'>
         <div className='donate__title'>
-          <h3>1 ETH raised</h3>
+          <h3>{this.state.sum} ETH raised</h3>
           <h4>from {this.props.data.goalMoney}</h4>
         </div>
         <div className='donate__progress'>

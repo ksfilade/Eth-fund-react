@@ -4,7 +4,7 @@ import ProgressBar from '../Porgress-Bar/progress-bar.component'
 import axios from 'axios';
 import { connect } from 'react-redux'
 import Spinner from '../Spinner/spiner.component'
-import { getBallance } from '../../helpers/web3'
+// import { getBallance } from '../../helpers/web3'
 class FundriserItem extends React.Component {
    constructor(props) {
       super(props);
@@ -18,7 +18,6 @@ class FundriserItem extends React.Component {
          widthStyle:{
             width: '0%'
          },
-         showProgressBar: false
       }
    }
    clickedView = () => {
@@ -40,6 +39,10 @@ class FundriserItem extends React.Component {
             deleted: true
          })
    }
+   getBalnce = async () =>{
+      let res = await axios.get('https://enigmatic-fortress-52205.herokuapp.com/fundrisers/donations/'+this.props.item._id)
+      return res.data.sum
+   }
    makeFeatured = async ( condition ) =>{
       this.setState({
          showFeaturedSpinner: true
@@ -55,14 +58,13 @@ class FundriserItem extends React.Component {
       })
    }
    async componentDidMount () {
-      let balance =  await getBallance(this.props.item.walletAddress);
+      let balance =  await this.getBalnce()
       let percent = balance/this.props.item.goalMoney*100;
       this.setState({
          featured: this.props.item.featured,
          widthStyle:{
             width: percent+'%'
          },
-         showProgressBar: true,
          raisedMoney: Math.round( balance * 100 )/100
       })
    }
@@ -85,7 +87,7 @@ class FundriserItem extends React.Component {
             <div className='featured__item__raised'>
                <p className='featured__item__raised__text'><b>{this.state.raisedMoney} ETH raised </b> from {this.props.item.goalMoney}</p>
             </div>
-            {this.state.showProgressBar && <ProgressBar style = {this.state.widthStyle}></ProgressBar>}
+           <ProgressBar style = {this.state.widthStyle}></ProgressBar>
             
             {!this.props.admin && <div className='featured__item__buttons'>
               {this.props.history.location.pathname != '/user-fundrisers' && <div className='featured__item__buttons__view' onClick={this.clickedView}  >

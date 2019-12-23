@@ -1,6 +1,5 @@
 import React from 'react';
 import './fundriser-content.styles.scss'
-import axios from 'axios';
 
 class FundriserContent extends React.Component {
   constructor(props) {
@@ -14,7 +13,7 @@ class FundriserContent extends React.Component {
     return (
       <div>
         <h1>{this.props.data.title}</h1>
-        <img className='thumbanil' src={"https://enigmatic-fortress-52205.herokuapp.com"+this.props.data.image} alt="" />
+        <img className='thumbanil' src={this.props.data.image != undefined? "https://enigmatic-fortress-52205.herokuapp.com"+this.props.data.image : "https://via.placeholder.com/350x200"} alt="" />
         <div className='content'>
           <div className='content__organaizer'>
             <img src="https://www.gofundme.com/static/media/AnonymousAvatar.9a4676309ac8b8e4c4fb08b0957bd6cf.svg" alt="" />
