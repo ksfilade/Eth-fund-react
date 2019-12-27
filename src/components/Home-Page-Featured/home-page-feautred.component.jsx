@@ -49,7 +49,7 @@ render () {
 return(
   <div className = 'featured'>
    
-   {this.state.showFeatured && this.state.results.map(el => ( <FundriserItem  history={this.props.history} item={el} key={el._id} openModal={this.openModal}></FundriserItem> ))}
+   {this.state.showFeatured && this.state.results.map(el => ( <FundriserItem  history={this.props.history} item={el.data} key={el._id} openModal={this.openModal} balance={el.balance}></FundriserItem> ))}
    {/* <FundriserItem></FundriserItem>
    <FundriserItem></FundriserItem> */}
    

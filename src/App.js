@@ -15,20 +15,42 @@ import editFundriser from './pages/Edit-Fundrisers/editFundriser.component'
 import socketIOClient from 'socket.io-client'
 import { connect } from 'react-redux'
 import { setCurrentUser} from './redux/user/user.actions'
+import { setSingleFundriser } from './redux/fundrisers/fundrisers.actions'
+import SnackBar from './components/Snackbar/snackbar.component'
 class App extends React.Component {
-  // componentDidMount() {
- 
-  //  this.props.setCurrentUser({name:'kire'})
-  // }
+  constructor(props) {
+    super(props);
+    this.state = {
+      donationFrom: '',
+      amount: '',
+      showSnackBar: false,
+    }
+  }
   componentDidMount() {
+    
     // const { endpoint } = this.state;
     const socket = socketIOClient('https://enigmatic-fortress-52205.herokuapp.com');
     socket.on('countupdatednetwork', (obj)=>{
-      console.log('cont updated network');
-      console.log(obj);
-     })
-  
-    // socket.on("FromAPI", data => this.setState({ response: data }));
+      let updatedItem = this.props.fundrisers.find(el => el.data._id == obj.toId)
+      updatedItem.balance += parseInt( obj._value ) /Math.pow(10,18);
+      this.props.setSingleFundriser( updatedItem )
+      let items = this.props.fundrisers.filter(el => el.data.createdBy == this.props.userID)
+      let singleItem = items.find(el => el.data._id == obj.toId)
+      if(items.find(el => el.data._id == obj.toId)){
+        let newBalance = parseInt( obj._value ) /Math.pow(10,18);
+        singleItem.balance += newBalance
+        this.setState({
+          showSnackBar: true,
+          donationFrom: 'from '+obj.fromId,
+          amount: obj._value/Math.pow(10,18)
+        })
+      }
+      setTimeout(() =>{
+        this.setState({
+          showSnackBar: false
+        })
+      },3000)
+     })  
   }
 
   render() {
@@ -38,6 +60,7 @@ class App extends React.Component {
       <div>
         <Navbar></Navbar>
       </div>
+      {this.state.showSnackBar && <SnackBar donationFrom={this.state.donationFrom} amount={this.state.amount}></SnackBar>}
       <Switch>
         <Route exact path='/' component = { HomePage } />
       </Switch>
@@ -66,8 +89,17 @@ class App extends React.Component {
   );
 }
 }
+const mapStateToProps = state => ({
+  userID: state.user.userID,
+  currentUser: state.user.currentUser,
+  isLogedin: state.user.isLogedin,
+  token: state.user.token,
+  fundrisers: state.fundriser.fundrisers
+});
 const mapDispatchToProps = dispatch => ({
-  setCurrentUser: user => dispatch(setCurrentUser(user))
+  setCurrentUser: user => dispatch(setCurrentUser(user)),
+  setSingleFundriser: fundriser => dispatch(setSingleFundriser(fundriser))
 });
 
-export default connect(null,mapDispatchToProps)(App);
+
+export default connect(mapStateToProps,mapDispatchToProps)(App);

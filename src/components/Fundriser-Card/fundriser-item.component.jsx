@@ -58,7 +58,9 @@ class FundriserItem extends React.Component {
       })
    }
    async componentDidMount () {
-      let balance =  await this.getBalnce()
+      // console.log(this.props.item);
+      let item = this.props.balance;
+      let balance = item
       let percent = balance/this.props.item.goalMoney*100;
       this.setState({
          featured: this.props.item.featured,
@@ -68,7 +70,7 @@ class FundriserItem extends React.Component {
          raisedMoney: Math.round( balance * 100 )/100
       })
    }
-
+   
    render() {
       return (
          <div className='featured__item' >
@@ -85,9 +87,9 @@ class FundriserItem extends React.Component {
                {this.props.item.description !==undefined && <p className='featured__item__content__text'>{this.props.item.description.slice(0,105) + '...'}</p>}
             </div>
             <div className='featured__item__raised'>
-               <p className='featured__item__raised__text'><b>{this.state.raisedMoney} ETH raised </b> from {this.props.item.goalMoney}</p>
+               <p className='featured__item__raised__text'><b>{this.props.balance} ETH raised </b> from {this.props.item.goalMoney}</p>
             </div>
-           <ProgressBar style = {this.state.widthStyle}></ProgressBar>
+           <ProgressBar style = {{width: this.props.balance/this.props.item.goalMoney*100+'%'}}></ProgressBar>
             
             {!this.props.admin && <div className='featured__item__buttons'>
               {this.props.history.location.pathname != '/user-fundrisers' && <div className='featured__item__buttons__view' onClick={this.clickedView}  >
@@ -122,7 +124,8 @@ const mapStateToProps = state => ({
     currentUser: state.user.currentUser,
     isLogedin: state.user.isLogedin,
     token: state.user.token,
-    admin: state.user.admin
+    admin: state.user.admin,
+    fundrisers: state.fundriser.fundrisers
 });
 export default connect(mapStateToProps, null)(FundriserItem);
 

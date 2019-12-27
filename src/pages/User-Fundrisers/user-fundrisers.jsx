@@ -13,55 +13,14 @@ class UserFundrisers extends React.Component {
     super()
     this.state = {
       results: [],
-      // showModal: false,
-      // title: '',
-      // walletAddress: '',
-      // limit: 4,
-      // skip: 0,
-      // showSpiner: false,
-      // query: '',
-      // allowNewCall: true,
+     
     }
   }
   componentDidMount() {
     this.getFundrisers(this.state.query)
     window.addEventListener("scroll", this.handleScroll);
   }
-  // clickedSearch = (queryItem) => {
-  //   this.setState({
-  //     limit: 4,
-  //     skip: 0,
-  //     results: [],
-  //     query: queryItem
-  //   }, () => { this.getFundrisers() }
-  //   )
-  // }
-  // handleScroll = async () => {
 
-  //   if (this.state.allowNewCall && document.getElementById("browse") != undefined && document.getElementById("browse").offsetHeight - 670 < window.scrollY) {
-  //     this.setState({
-  //       skip: this.state.skip + 4,
-  //       // showSpiner: true,
-  //       allowNewCall: false
-  //     })
-  //     await this.getFundrisers(this.state.query)
-
-  //   }
-  // }
-  // openModal = (title, walletAddress, id) => {
-  //   this.setState({
-  //     showModal: true,
-  //     title: title,
-  //     walletAddress: walletAddress,
-  //     donateTo: id
-  //   })
-  // }
-  // closeModal = () => {
-  //   this.setState({
-  //     showModal: false,
-  //     title: ''
-  //   })
-  // }
   async getFundrisers(query) {
     const results = await axios.get('https://enigmatic-fortress-52205.herokuapp.com/fundrisers/user/' + this.props.userID,
     { headers: { 'Content-Type': 'application/json', 'token': this.props.token } })
@@ -89,7 +48,7 @@ class UserFundrisers extends React.Component {
 
             {
               this.state.results.map(el => (
-                <FundriserItem history={this.props.history} item={el} key={el._id} openModal={this.openModal} ></FundriserItem>
+                <FundriserItem history={this.props.history} item={el} key={el._id} openModal={this.openModal} balance = {1} ></FundriserItem>
               ))
             }
             {this.state.showSpiner && <Spiner color='#4CAF50' size='90' background='white'></Spiner>}

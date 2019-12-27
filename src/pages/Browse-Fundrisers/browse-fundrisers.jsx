@@ -5,7 +5,9 @@ import Search from '../../components/Search-Browse-Fundrisers/search.component'
 import './browse-fundrisers.scss'
 import axios from 'axios'
 import Spiner from '../../components/Spinner/spiner.component'
-
+import { connect } from 'react-redux'
+import { setFundrisers, setSingleFundriser } from '../../redux/fundrisers/fundrisers.actions'
+import Fundriser from '../Single-Fundriser/fundriser';
 class BrowseFundrisers extends React.Component {
   constructor() {
     super()
@@ -19,10 +21,11 @@ class BrowseFundrisers extends React.Component {
       showSpiner: false,
       query: '',
       allowNewCall: true,
+      renderItems: false
     }
   }
-  componentDidMount() {
-    this.getFundrisers(this.state.query)
+  async componentDidMount() {
+    await this.getFundrisers(this.state.query)
     window.addEventListener("scroll", this.handleScroll);
   }
   clickedSearch = (queryItem) => {
@@ -60,17 +63,25 @@ class BrowseFundrisers extends React.Component {
       title: ''
     })
   }
-  async getFundrisers(query) {
-    const results = await axios.get('https://enigmatic-fortress-52205.herokuapp.com/fundrisers?limit=' + this.state.limit + '&skip=' + this.state.skip + this.state.query)
+  async getFundrisers() {
+    if(this.state.skip == 0 && this.props.fundrisers.length > 0)
+     this.setState({
+       skip: this.props.fundrisers.length
+     })
+    const results = await axios.get('https://enigmatic-fortress-52205.herokuapp.com/fundrisers?limit=' + this.state.limit + '&skip=' + this.props.fundrisers.length + this.state.query)
+    let data = results.data.results
+    
+    await this.props.setFundrisers(data)
     this.setState({
-      results: [...this.state.results, ...results.data.results],
+      allowNewCall: results.data.results.length < this.state.limit ? false : true,
       showSpiner: false,
+      renderItems: true
     })
-    this.setState({
-      allowNewCall: results.data.results.length < this.state.limit ? false : true
-    })
-
   }
+  getBalnce = async (id) =>{
+    let res = await axios.get('https://enigmatic-fortress-52205.herokuapp.com/fundrisers/donations/'+id)
+    return res.data.sum
+ }
 
 
   render() {
@@ -83,21 +94,29 @@ class BrowseFundrisers extends React.Component {
         <div className='browse__wrap'>
 
 
-          <div className='browse'>
+          {this.state.renderItems && <div className='browse'>
 
             {
-              this.state.results.map(el => (
-                <FundriserItem history={this.props.history} item={el} key={el._id} openModal={this.openModal} ></FundriserItem>
+              this.props.fundrisers.map(el => (
+                <FundriserItem history={this.props.history} item={el.data} key={el.data._id} openModal={this.openModal} balance={el.balance} ></FundriserItem>
               ))
             }
             {this.state.showSpiner && <Spiner color='#4CAF50' size='90' background='white'></Spiner>}
             <DonateModal closeModal={this.closeModal} showModal={this.state.showModal} title={this.state.title} walletAddress={this.state.walletAddress} donateTo={this.state.donateTo}></DonateModal>
-          </div>
+          </div>}
 
         </div>
       </div>
     );
   }
 }
+const mapStateToProps = state => ({
+  userID: state.user.userID,
+  fundrisers: state.fundriser.fundrisers
+});
+const mapDispatchToProps = dispatch => ({
+  setFundrisers: fundriser => dispatch(setFundrisers(fundriser)),
+  setSingleFundriser: fundriser => dispatch(setSingleFundriser(fundriser))
+});
 
-export default BrowseFundrisers;
+export default connect(mapStateToProps, mapDispatchToProps)(BrowseFundrisers);
