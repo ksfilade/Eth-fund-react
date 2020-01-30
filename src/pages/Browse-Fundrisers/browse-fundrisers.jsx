@@ -6,7 +6,7 @@ import './browse-fundrisers.scss'
 import axios from 'axios'
 import Spiner from '../../components/Spinner/spiner.component'
 import { connect } from 'react-redux'
-import { setFundrisers, setSingleFundriser, getFundrisers } from '../../redux/fundrisers/fundrisers.actions'
+import { setFundrisers, setSingleFundriser, getFundrisers,removeFundrisers } from '../../redux/fundrisers/fundrisers.actions'
 import Fundriser from '../Single-Fundriser/fundriser';
 class BrowseFundrisers extends React.Component {
   constructor() {
@@ -25,10 +25,13 @@ class BrowseFundrisers extends React.Component {
     }
   }
   async componentDidMount() {
+    this.props.removeFundrisers()
     await this.getFundrisers(this.state.query)
     window.addEventListener("scroll", this.handleScroll);
   }
   clickedSearch = (queryItem) => {
+    this.props.removeFundrisers()
+
     this.setState({
       limit: 4,
       skip: 0,
@@ -41,7 +44,6 @@ class BrowseFundrisers extends React.Component {
 
     if (this.state.allowNewCall && document.getElementById("browse") != undefined && document.getElementById("browse").offsetHeight - 670 < window.scrollY) {
       this.setState({
-        skip: this.state.skip + 4,
         showSpiner: true,
         allowNewCall: false
       })
@@ -64,7 +66,7 @@ class BrowseFundrisers extends React.Component {
     })
   }
   async getFundrisers() {
-    if(this.state.skip == 0 && this.props.fundrisers.length > 0)
+    // if(this.state.skip == 0 && this.props.fundrisers.length > 0)
      this.setState({
        showSpiner:true,
        skip: this.props.fundrisers.length
@@ -111,6 +113,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   setFundrisers: fundriser => dispatch(setFundrisers(fundriser)),
   setSingleFundriser: fundriser => dispatch(setSingleFundriser(fundriser)),
+  removeFundrisers: () => dispatch(removeFundrisers()),
   getFundrisers: (skip, limit, query) => dispatch(getFundrisers(skip, limit, query)),
 });
 

@@ -38,7 +38,7 @@ class App extends React.Component {
       let singleItem = items.find(el => el.data._id == obj.toId)
       if(items.find(el => el.data._id == obj.toId)){
         let newBalance = parseInt( obj._value ) /Math.pow(10,18);
-        singleItem.balance += newBalance
+        // singleItem.balance += newBalance
         this.setState({
           showSnackBar: true,
           donationFrom: 'from '+obj.fromId,

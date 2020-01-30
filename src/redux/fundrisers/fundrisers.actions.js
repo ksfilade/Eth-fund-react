@@ -10,3 +10,7 @@ export const getFundrisers = fundriser => ({
     type: 'GET_FUNDRISERS',
     payload: fundriser
 })
+
+export const removeFundrisers = fundriser => ({
+    type: 'REMOVE_FUNDRISERS',
+})

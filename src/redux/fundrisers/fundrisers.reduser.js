@@ -11,6 +11,11 @@ const fundrisersReducer = (state = INITIAL_STATE, action) => {
                 ...state,
                 fundrisers: [...state.fundrisers, ...action.payload]
             }
+        case 'REMOVE_FUNDRISERS':
+            return {
+                ...state,
+                fundrisers: []
+        }    
         case 'SET_SINGLE_FUNDRISER':
             state.fundrisers.forEach((el,index,arr) =>{
                 if(action.payload._id == el._id)
