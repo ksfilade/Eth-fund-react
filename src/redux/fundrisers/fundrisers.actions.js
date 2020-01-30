@@ -6,3 +6,7 @@ export const setSingleFundriser = fundriser => ({
     type: 'SET_SINGLE_FUNDRISER',
     payload: fundriser
 })
+export const getFundrisers = fundriser => ({
+    type: 'GET_FUNDRISERS',
+    payload: fundriser
+})

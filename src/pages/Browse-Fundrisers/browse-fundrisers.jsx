@@ -6,7 +6,7 @@ import './browse-fundrisers.scss'
 import axios from 'axios'
 import Spiner from '../../components/Spinner/spiner.component'
 import { connect } from 'react-redux'
-import { setFundrisers, setSingleFundriser } from '../../redux/fundrisers/fundrisers.actions'
+import { setFundrisers, setSingleFundriser, getFundrisers } from '../../redux/fundrisers/fundrisers.actions'
 import Fundriser from '../Single-Fundriser/fundriser';
 class BrowseFundrisers extends React.Component {
   constructor() {
@@ -66,22 +66,16 @@ class BrowseFundrisers extends React.Component {
   async getFundrisers() {
     if(this.state.skip == 0 && this.props.fundrisers.length > 0)
      this.setState({
+       showSpiner:true,
        skip: this.props.fundrisers.length
      })
-    const results = await axios.get('https://enigmatic-fortress-52205.herokuapp.com/fundrisers?limit=' + this.state.limit + '&skip=' + this.props.fundrisers.length + this.state.query)
-    let data = results.data.results
+     let payLoad ={ skip:this.state.skip, limit:this.state.limit, query:this.state.query }
+     this.props.getFundrisers(payLoad)
     
-    await this.props.setFundrisers(data)
-    this.setState({
-      allowNewCall: results.data.results.length < this.state.limit ? false : true,
+     this.setState({
       showSpiner: false,
-      renderItems: true
     })
   }
-  getBalnce = async (id) =>{
-    let res = await axios.get('https://enigmatic-fortress-52205.herokuapp.com/fundrisers/donations/'+id)
-    return res.data.sum
- }
 
 
   render() {
@@ -94,7 +88,7 @@ class BrowseFundrisers extends React.Component {
         <div className='browse__wrap'>
 
 
-          {this.state.renderItems && <div className='browse'>
+          { <div className='browse'>
 
             {
               this.props.fundrisers.map(el => (
@@ -116,7 +110,8 @@ const mapStateToProps = state => ({
 });
 const mapDispatchToProps = dispatch => ({
   setFundrisers: fundriser => dispatch(setFundrisers(fundriser)),
-  setSingleFundriser: fundriser => dispatch(setSingleFundriser(fundriser))
+  setSingleFundriser: fundriser => dispatch(setSingleFundriser(fundriser)),
+  getFundrisers: (skip, limit, query) => dispatch(getFundrisers(skip, limit, query)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(BrowseFundrisers);
