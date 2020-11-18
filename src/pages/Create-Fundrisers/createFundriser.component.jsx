@@ -122,7 +122,7 @@ class startfundriser extends React.Component {
                             <input className='startfundriser__box__credentials__input' placeholder='organaiser' type="text" value={this.state.organaiser} onChange={this.setField.bind(null, 'organaiser')} />
                             <div className='startfundriser__box__credentials__checkbox'>
                                 <div className='startfundriser__box__credentials__checkbox__value' onClick={this.clickedUseCredentials}>
-                                    {this.state.useCredentials && <img src="https://www.goglobie.com/wp-content/uploads/2018/03/check-image.png" alt="" />}
+                                    {this.state.useCredentials && <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Black_check.svg/1024px-Black_check.svg.png" alt="" />}
                                 </div>
                                 <div className='startfundriser__box__credentials__checkbox__text'>
                                     <h5>Use First and Last Name</h5>

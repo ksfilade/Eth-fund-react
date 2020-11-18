@@ -41,8 +41,9 @@ class BrowseFundrisers extends React.Component {
     )
   }
   handleScroll = async () => {
-
-    if (this.state.allowNewCall && document.getElementById("browse") != undefined && document.getElementById("browse").offsetHeight - 670 < window.scrollY) {
+    console.log('handle scroll');
+    if (this.state.allowNewCall && document.getElementById("browse") != undefined && document.getElementById("browse").offsetHeight - 970 < window.scrollY) {
+      console.log('here 123');
       this.setState({
         showSpiner: true,
         allowNewCall: false

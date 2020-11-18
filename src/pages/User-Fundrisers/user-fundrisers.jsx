@@ -24,6 +24,7 @@ class UserFundrisers extends React.Component {
   async getFundrisers(query) {
     const results = await axios.get('https://enigmatic-fortress-52205.herokuapp.com/fundrisers/user/' + this.props.userID,
     { headers: { 'Content-Type': 'application/json', 'token': this.props.token } })
+    console.log(results.data.results);
     this.setState({
       results: [...results.data.results]
     })
@@ -48,7 +49,7 @@ class UserFundrisers extends React.Component {
 
             {
               this.state.results.map(el => (
-                <FundriserItem history={this.props.history} item={el} key={el._id} openModal={this.openModal} balance = {1} ></FundriserItem>
+                <FundriserItem history={this.props.history} item={el} key={el._id} openModal={this.openModal} balance = {el.balance} ></FundriserItem>
               ))
             }
             {this.state.showSpiner && <Spiner color='#4CAF50' size='90' background='white'></Spiner>}
