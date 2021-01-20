@@ -91,7 +91,7 @@ class startfundriser extends React.Component {
         this.setState({
             showSpiner: true
         })
-        axios.post('https://enigmatic-fortress-52205.herokuapp.com/fundrisers', data, { headers: { 'Content-Type': 'application/json', 'token': this.props.token } })
+        axios.post('http://localhost:3001/fundrisers', data, { headers: { 'Content-Type': 'application/json', 'token': this.props.token } })
             .then(res => {
                 this.setState({
                     token: res.data.token,

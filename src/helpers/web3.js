@@ -29,7 +29,7 @@ export async function payWithEth(walletAddress, amount, user, donateTo) {
         amount: parseFloat(amount),
     }
     if (res)
-        await axios.post('https://enigmatic-fortress-52205.herokuapp.com/fundrisers/donation', data, { headers: { 'Content-Type': 'application/json' } })
+        await axios.post('http://localhost:3001/fundrisers/donation', data, { headers: { 'Content-Type': 'application/json' } })
 
     return res
 

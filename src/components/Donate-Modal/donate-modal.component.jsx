@@ -2,6 +2,7 @@ import React from 'react';
 import './donate-modal.styles.scss'
 import { payWithEth } from '../../helpers/web3'
 import { connect } from 'react-redux'
+import axios from 'axios'
 
 class DonateModal extends React.Component {
    constructor(props) {
@@ -12,7 +13,8 @@ class DonateModal extends React.Component {
          donateAnonymous: !this.props.isLogedin,
          successDonation: true,
          donationText: 'Proccessing Donation',
-         showMessagess: false
+         showMessagess: false,
+         comment: ''
       }
    }
    clickedClose = () => {
@@ -31,16 +33,31 @@ class DonateModal extends React.Component {
       })
    }
    clickedDonate = async () => {
+     console.log(this.props.currentUser, this.props.donateTo, this.state.comment, this.state.amount);
       this.setState({
          successDonation : false,
          showMessagess: true,
          donationText: 'Donation is Processing'
       }) 
-       if( await payWithEth(this.props.walletAddress, this.state.amount, this.state.donateAnonymous ? 'Anonymous' : this.props.currentUser, this.props.donateTo) )
+       if( await payWithEth(this.props.walletAddress, this.state.amount, this.state.donateAnonymous ? 'Anonymous' : this.props.currentUser, this.props.donateTo) ){
          this.setState({
             donationText: 'Successfull Donation',
             successDonation : true
          })
+         let data = {
+            fundriserId: this.props.donateTo,
+            commentName: this.state.donateAnonymous ? 'Anonymous' : this.props.currentUser,
+            comment: this.state.comment,
+            amount: this.state.amount
+         }
+         if(typeof this.props.refreshData == "function")
+            this.props.refreshData()
+         console.log(data);
+         if(this.state.comment === '' || typeof this.props.getCommens === "undefined" )
+            return
+         let res = await axios.post('http://localhost:3001/fundriser/comments', data, { headers: { 'Content-Type': 'application/json' } })
+         this.props.getCommens()
+      }
       else{
          this.setState({
             showMessagess: false
@@ -49,6 +66,7 @@ class DonateModal extends React.Component {
     
    }
    componentDidMount(){
+      console.log(this.props);
    }
    clickedDonateAnonymous = () => {
       if(this.props.isLogedin)
@@ -73,11 +91,20 @@ class DonateModal extends React.Component {
                            <h3>ETH</h3>
                         </div>
                      </div>
+                     {/* <button onClick={() =>{ this.props.getCommens()}}> click me</button> */}
+                     <h3 className='modal-content__donation__donate'>Leave Comment</h3>
+
+                     <div className='modal-content__donation__input'>
+
+                        <textarea value={this.state.comment} style={{width: '100%',height: '100px'}} type="text" onChange={this.setField.bind(null, 'comment')} > </textarea>
+                        <div className='modal-content__donation__input__value'>
+                        </div>
+                     </div>
                      <div className={!this.props.isLogedin ? 'modal-content__donation__checkbox__not_loged_user modal-content__donation__checkbox' : 'modal-content__donation__checkbox'}>
-                        <div className='modal-content__donation__checkbox__value' onClick={this.clickedDonateAnonymous}>
+                        <div style={{marginTop: '30px'}} className='modal-content__donation__checkbox__value' onClick={this.clickedDonateAnonymous}>
                            {this.state.donateAnonymous && <img src={require('../../assets/img/check.svg')} alt="" />}
                         </div>
-                        <div className='modal-content__donation__checkbox__text'>
+                        <div style={{marginTop: '30px'}} className='modal-content__donation__checkbox__text'>
                            <h3>Donate Anonymously</h3>
                         </div>
                      </div>

@@ -33,7 +33,7 @@ class editfundriser extends React.Component {
         this.submitHandler = this.submitHandler.bind(this)
     }
     async componentDidMount() {
-        let res = await axios.get('https://enigmatic-fortress-52205.herokuapp.com/fundrisers/' + this.props.match.params.id)
+        let res = await axios.get('http://localhost:3001/fundrisers/' + this.props.match.params.id)
         const item = res.data[0]
         this.setState({
             city: item.city,
@@ -92,7 +92,7 @@ class editfundriser extends React.Component {
         this.setState({
             showSpiner: true
         })
-        axios.put('https://enigmatic-fortress-52205.herokuapp.com/fundrisers/user/' + this.props.id + '/edit/' + this.props.match.params.id, data, { headers: { 'Content-Type': 'application/json', 'token': this.props.token } })
+        axios.put('http://localhost:3001/fundrisers/user/' + this.props.id + '/edit/' + this.props.match.params.id, data, { headers: { 'Content-Type': 'application/json', 'token': this.props.token } })
             .then(res => {
                 this.setState({
                     showSpiner: false,
@@ -179,7 +179,7 @@ class editfundriser extends React.Component {
                     <div className='startfundriser__box__button'>
 
                         {!this.state.disableUpdateButton && <div className='startfundriser__box__button__startfundriser' onClick={this.submitHandler}>
-                            {!this.state.showSpiner && <h3>Start Fundriser</h3>}
+                            {!this.state.showSpiner && <h3>Edit Fundriser</h3>}
                             {this.state.showSpiner && <Spiner color='#4CAF50' size='30' background='white'></Spiner>}
                         </div>}
                         {this.state.disableUpdateButton && <div className='startfundriser__box__button__startfundriser not-active' >

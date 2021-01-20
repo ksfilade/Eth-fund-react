@@ -21,7 +21,7 @@ class FundriserDonate extends React.Component {
     }
   }
   async componentDidMount() {
-    let data = (await axios.get("https://enigmatic-fortress-52205.herokuapp.com/fundrisers/donations/"+this.props.data._id));
+    let data = (await axios.get("http://localhost:3001/fundrisers/donations/"+this.props.data._id));
     this.setState({
       data: data.data.result,
       sum: data.data.sum
@@ -70,7 +70,7 @@ class FundriserDonate extends React.Component {
               <h5>{ element.donationFrom} </h5>
             </div>
             <div className='donate__donators__text__amount'>
-              <h4>ETH { element.amount }</h4>
+              <h4>ETH { element.amount  }</h4>
               <h5>{this.calculateTimeSpan( element.dateDonated )} hrs</h5>
             </div>
           </div>
@@ -82,14 +82,14 @@ class FundriserDonate extends React.Component {
     return (
       <div className='donate'>
         <div className='donate__title'>
-          <h3>{this.state.sum} ETH raised</h3>
+          <h3>{this.state.sum.toFixed(2)} ETH raised</h3>
           <h4>from {this.props.data.goalMoney}</h4>
         </div>
         <div className='donate__progress'>
           <ProgressBar style={this.state.widthStyle}></ProgressBar>
         </div>
         <button className='donate__button' onClick={this.openModal}>Donate Now</button>
-
+        
 
         {/* <div className='donate__donators'>
           <div className='donate__donators__image'>
@@ -109,7 +109,7 @@ class FundriserDonate extends React.Component {
         <div className = 'donate__all_donators'>
           {elements}
         </div>
-        <DonateModal closeModal={this.closeModal} showModal={this.state.showModal} title={this.props.data.title} walletAddress={this.props.data.walletAddress} donateTo = { this.props.data._id }></DonateModal>
+        <DonateModal getCommens={ () =>{ this.props.getComments() }} closeModal={this.closeModal} showModal={this.state.showModal} title={this.props.data.title} walletAddress={this.props.data.walletAddress} donateTo = { this.props.data._id }></DonateModal>
       </div>
 
     )

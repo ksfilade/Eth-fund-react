@@ -10,7 +10,7 @@ function* fundriserSaga() {
     yield takeLatest("GET_FUNDRISERS", getFundrisers);
 }
 async function fetchFundrisers(limit, skip, query){
-        let response = await axios.get('https://enigmatic-fortress-52205.herokuapp.com/fundrisers?limit=' + limit + '&skip=' + skip + query)
+        let response = await axios.get('http://localhost:3001/fundrisers?limit=' + limit + '&skip=' + skip + query)
         return response
 }
 export default fundriserSaga;

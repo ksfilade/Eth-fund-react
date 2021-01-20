@@ -30,7 +30,7 @@ class FundriserItem extends React.Component {
       this.setState({
          showDeleteSpinner: true
       })
-      let res = await axios.delete('https://enigmatic-fortress-52205.herokuapp.com/fundrisers/'+this.props.item._id,{ headers: { 'Content-Type': 'application/json', 'token': this.props.token } })
+      let res = await axios.delete('http://localhost:3001/fundrisers/'+this.props.item._id,{ headers: { 'Content-Type': 'application/json', 'token': this.props.token } })
       this.setState({
          showDeleteSpinner: false
       })
@@ -40,7 +40,7 @@ class FundriserItem extends React.Component {
          })
    }
    getBalnce = async () =>{
-      let res = await axios.get('https://enigmatic-fortress-52205.herokuapp.com/fundrisers/donations/'+this.props.item._id)
+      let res = await axios.get('http://localhost:3001/fundrisers/donations/'+this.props.item._id)
       return res.data.sum
    }
    makeFeatured = async ( condition ) =>{
@@ -50,7 +50,7 @@ class FundriserItem extends React.Component {
       let data = {
          featured: condition
       }
-      let res = await axios.put('https://enigmatic-fortress-52205.herokuapp.com/fundrisers/'+this.props.item._id, data, { headers: { 'Content-Type': 'application/json', 'token': this.props.token } })
+      let res = await axios.put('http://localhost:3001/fundrisers/'+this.props.item._id, data, { headers: { 'Content-Type': 'application/json', 'token': this.props.token } })
       this.setState({
          showFeaturedSpinner: false,
          showRemoveFeatured: condition,
@@ -58,7 +58,7 @@ class FundriserItem extends React.Component {
       })
    }
    async componentDidMount () {
-      // console.log(this.props.item);
+      console.log(this.props.item);
       let item = this.props.balance;
       let balance = item
       let percent = balance/this.props.item.goalMoney*100;
@@ -87,7 +87,7 @@ class FundriserItem extends React.Component {
                {this.props.item.description !==undefined && <p className='featured__item__content__text'>{this.props.item.description.slice(0,105) + '...'}</p>}
             </div>
             <div className='featured__item__raised'>
-               <p className='featured__item__raised__text'><b>{this.props.balance} ETH raised </b> from {this.props.item.goalMoney}</p>
+               <p className='featured__item__raised__text'><b>{this.props.balance.toFixed(2)} ETH raised </b> from {this.props.item.goalMoney}</p>
             </div>
            <ProgressBar style = {{width: this.props.balance/this.props.item.goalMoney*100+'%'}}></ProgressBar>
             

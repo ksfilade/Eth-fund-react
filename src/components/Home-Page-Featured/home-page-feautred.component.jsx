@@ -39,7 +39,7 @@ closeModal = () => {
   })
 }
 async getFundrisers() {
-  const results = await axios.get('https://enigmatic-fortress-52205.herokuapp.com/fundrisers?featured=true')
+  const results = await axios.get('http://localhost:3001/fundrisers?featured=true')
   this.setState({
     results: [...this.state.results, ...results.data.results],
     showSpiner: false,

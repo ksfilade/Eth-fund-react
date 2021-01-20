@@ -17,7 +17,7 @@ class Navbar extends React.Component {
   }
 
   async logOut() {
-    let res = await axios.post('https://enigmatic-fortress-52205.herokuapp.com/users/logout', null,
+    let res = await axios.post('http://localhost:3001/users/logout', null,
       {
         headers: { 'Content-Type': 'application/json', 'token': this.props.token }
       })

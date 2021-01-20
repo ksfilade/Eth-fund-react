@@ -30,7 +30,7 @@ class Signup extends React.Component {
     //     let user = this.state;
     //     // delete user.repatPassword;
     //     delete user.token
-    //     axios.post('https://enigmatic-fortress-52205.herokuapp.com/users', user, { headers: { 'Content-Type': 'application/json' } })
+    //     axios.post('http://localhost:3001/users', user, { headers: { 'Content-Type': 'application/json' } })
     //         .then(res => {
     //             this.props.setCurrentUser({ name: res.data.user.email, isLogedin: true, token: res.data.token })
     //         })

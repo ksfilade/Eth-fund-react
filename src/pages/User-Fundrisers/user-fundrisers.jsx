@@ -22,7 +22,7 @@ class UserFundrisers extends React.Component {
   }
 
   async getFundrisers(query) {
-    const results = await axios.get('https://enigmatic-fortress-52205.herokuapp.com/fundrisers/user/' + this.props.userID,
+    const results = await axios.get('http://localhost:3001/fundrisers/user/' + this.props.userID,
     { headers: { 'Content-Type': 'application/json', 'token': this.props.token } })
     console.log(results.data.results);
     this.setState({
@@ -49,7 +49,7 @@ class UserFundrisers extends React.Component {
 
             {
               this.state.results.map(el => (
-                <FundriserItem history={this.props.history} item={el} key={el._id} openModal={this.openModal} balance = {el.balance} ></FundriserItem>
+                <FundriserItem history={this.props.history} item={el.data} key={el._id} openModal={this.openModal} balance = {el.balance} ></FundriserItem>
               ))
             }
             {this.state.showSpiner && <Spiner color='#4CAF50' size='90' background='white'></Spiner>}

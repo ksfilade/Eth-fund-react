@@ -79,7 +79,10 @@ class BrowseFundrisers extends React.Component {
       showSpiner: false,
     })
   }
-
+   refreshData =() =>{
+    this.props.removeFundrisers()
+    this.getFundrisers()
+  }
 
   render() {
 
@@ -90,7 +93,6 @@ class BrowseFundrisers extends React.Component {
         </div>
         <div className='browse__wrap'>
 
-
           { <div className='browse'>
 
             {
@@ -99,7 +101,7 @@ class BrowseFundrisers extends React.Component {
               ))
             }
             {this.state.showSpiner && <Spiner color='#4CAF50' size='90' background='white'></Spiner>}
-            <DonateModal closeModal={this.closeModal} showModal={this.state.showModal} title={this.state.title} walletAddress={this.state.walletAddress} donateTo={this.state.donateTo}></DonateModal>
+            <DonateModal refreshData={() => this.refreshData() } closeModal={this.closeModal} showModal={this.state.showModal} title={this.state.title} walletAddress={this.state.walletAddress} donateTo={this.state.donateTo}></DonateModal>
           </div>}
 
         </div>

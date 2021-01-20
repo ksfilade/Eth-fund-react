@@ -42,7 +42,7 @@ const withSign = WrappedComponent => {
           showSpiner: true
         })
 
-      let res = await axios.post('https://enigmatic-fortress-52205.herokuapp.com/users/' + signType, data)
+      let res = await axios.post('http://localhost:3001/users/' + signType, data)
       if (res.data.success == undefined) {
         this.props.setCurrentUser({ name: res.data.user.firstName, isLogedin: true, token: res.data.token, admin: res.data.user.admin, userID: res.data.user._id })
         
